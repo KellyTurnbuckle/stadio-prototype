@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Pricing Calculator Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+const { useMemo, useState } = React;
+
+const MODULE_PRICE = 2770;
+const UPFRONT_TOTAL = 16620;
+const COMPULSORY_MODULES = [
+  "Entrepreneurship",
+  "Fundamentals of Business Communication",
+  "Fundamentals of Business Studies",
+  "Management"
+];
+
+const ELECTIVE_MODULES = [
+  "Accountancy",
+  "Aviation Management",
+  "Cybersecurity Management",
+  "Data Management",
+  "Disaster Risk Management",
+  "HR Management",
+  "Logistics Management",
+  "Marketing Management",
+  "Occupational Health",
+  "Police Management",
+  "Project Management",
+  "Public Sector Management",
+  "Financial Management"
+];
+
+const DEFAULT_SELECTED_ELECTIVES = ["Accountancy", "Marketing Management", "Project Management"];
+const DISASTER_AUTO_MODULES = ["Disaster Risk Reduction 1", "Project Management 1"];
+
+const REGISTRATION_FEES = {
+  firstTime: 2080,
+  subsequent: 1090
+};
+
+const SCHEDULE_MONTHS = {
+  semester1: [
+    { month: "March", date: "31 Mar 2026" },
+    { month: "April", date: "30 Apr 2026" },
+    { month: "May", date: "31 May 2026" },
+    { month: "June", date: "30 Jun 2026" }
+  ],
+  semester2: [
+    { month: "August", date: "31 Aug 2026" },
+    { month: "September", date: "30 Sep 2026" },
+    { month: "October", date: "31 Oct 2026" },
+    { month: "November", date: "30 Nov 2026" }
+  ]
+};
+
+const money = (value) =>
+  new Intl.NumberFormat("en-ZA", {
+    style: "currency",
+    currency: "ZAR",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })
+    .format(value)
+    .replace("ZAR", "R")
+    .replace(/\s/g, " ");
+
+function PaymentModeToggle({ mode, onModeChange }) {
+  return (
+    <div className="payment-mode-toggle" role="tablist" aria-label="Payment mode">
+      <div className={`indicator ${mode}`} />
+      <button
+        type="button"
+        className={`mode-btn ${mode === "monthly" ? "active" : ""}`}
+        onClick={() => onModeChange("monthly")}
+        role="tab"
+        aria-selected={mode === "monthly"}
+      >
+        Monthly Instalments
+      </button>
+      <button
+        type="button"
+        className={`mode-btn ${mode === "upfront" ? "active" : ""}`}
+        onClick={() => onModeChange("upfront")}
+        role="tab"
+        aria-selected={mode === "upfront"}
+      >
+        Upfront Payment
+      </button>
+    </div>
+  );
+}
+
+function AccordionWrapper({ title, open, onToggle, children }) {
+  return (
+    <section className="accordion-wrapper">
+      <button className="accordion-header" type="button" onClick={onToggle} aria-expanded={open}>
+        <span>{title}</span>
+        <span className={`accordion-arrow ${open ? "open" : ""}`}>▾</span>
+      </button>
+      <div className={`accordion-body ${open ? "open" : ""}`}>{children}</div>
+    </section>
+  );
+}
+
+function CompulsoryModules() {
+  return (
+    <div className="list-wrap">
+      {COMPULSORY_MODULES.map((module) => (
+        <article className="line-item read-only" key={module}>
+          <div className="line-content">
+            <p>{module}</p>
+            <small>Compulsory (always included)</small>
+          </div>
+          <strong>{money(MODULE_PRICE)}</strong>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function ElectiveModules({ selectedElectives, onToggle }) {
+  return (
+    <div className="list-wrap">
+      {ELECTIVE_MODULES.map((module) => {
+        const checked = selectedElectives.includes(module);
+        return (
+          <label className={`line-item selectable ${checked ? "checked" : ""}`} key={module}>
+            <span className="checkbox-wrap">
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={() => onToggle(module)}
+                aria-label={module}
+              />
+              <span className="checkbox-ui" aria-hidden="true" />
+            </span>
+            <span className="line-content">
+              <span>{module}</span>
+              <small>{money(MODULE_PRICE)}</small>
+            </span>
+          </label>
+        );
+      })}
+    </div>
+  );
+}
+
+function AuxiliaryFees({ auxiliaryState, onToggleAuxiliary }) {
+  return (
+    <div className="list-wrap">
+      <label className={`line-item selectable ${auxiliaryState.cat ? "checked" : ""}`}>
+        <span className="checkbox-wrap">
+          <input
+            type="checkbox"
+            checked={auxiliaryState.cat}
+            onChange={() => onToggleAuxiliary("cat")}
+            aria-label="Credit Accumulation and Transfer"
+          />
+          <span className="checkbox-ui" aria-hidden="true" />
+        </span>
+        <span className="line-content">
+          <span>Credit Accumulation and Transfer (CAT)</span>
+          <small>{money(900)} per module where credits are awarded</small>
+        </span>
+      </label>
+
+      <label className={`line-item selectable ${auxiliaryState.rplApplication ? "checked" : ""}`}>
+        <span className="checkbox-wrap">
+          <input
+            type="checkbox"
+            checked={auxiliaryState.rplApplication}
+            onChange={() => onToggleAuxiliary("rplApplication")}
+            aria-label="RPL application fee"
+          />
+          <span className="checkbox-ui" aria-hidden="true" />
+        </span>
+        <span className="line-content">
+          <span>Recognition of Prior Learning (RPL) Application</span>
+          <small>{money(1040)} application fee</small>
+        </span>
+      </label>
+
+      <label className={`line-item selectable ${auxiliaryState.rplExemption ? "checked" : ""}`}>
+        <span className="checkbox-wrap">
+          <input
+            type="checkbox"
+            checked={auxiliaryState.rplExemption}
+            onChange={() => onToggleAuxiliary("rplExemption")}
+            aria-label="RPL exemption fee"
+          />
+          <span className="checkbox-ui" aria-hidden="true" />
+        </span>
+        <span className="line-content">
+          <span>Recognition of Prior Learning (RPL) Exemption</span>
+          <small>{money(1280)} per module where exemptions apply</small>
+        </span>
+      </label>
+    </div>
+  );
+}
+
+function RegistrationFeeSelector({ registrationType, onChangeRegistration }) {
+  return (
+    <div className="registration-wrap">
+      <label className="radio-option">
+        <input
+          type="radio"
+          name="registration-type"
+          checked={registrationType === "firstTime"}
+          onChange={() => onChangeRegistration("firstTime")}
+        />
+        <span>First Time Registration ({money(REGISTRATION_FEES.firstTime)})</span>
+      </label>
+      <label className="radio-option">
+        <input
+          type="radio"
+          name="registration-type"
+          checked={registrationType === "subsequent"}
+          onChange={() => onChangeRegistration("subsequent")}
+        />
+        <span>Subsequent Registration ({money(REGISTRATION_FEES.subsequent)})</span>
+      </label>
+    </div>
+  );
+}
+
+function PaymentSchedule({ semester, monthlyInstalment, semesterCost }) {
+  return (
+    <div className="schedule-wrap">
+      <div className="schedule-head">
+        <span>Month</span>
+        <span>Payment Date</span>
+        <span>Amount Due</span>
+      </div>
+      {SCHEDULE_MONTHS[semester].map((row) => (
+        <div className="schedule-row" key={`${semester}-${row.date}`}>
+          <span>{row.month}</span>
+          <span>{row.date}</span>
+          <strong>{money(monthlyInstalment)}</strong>
+        </div>
+      ))}
+      <div className="schedule-row total">
+        <span>Total</span>
+        <span>{semester === "semester1" ? "Semester 1" : "Semester 2"}</span>
+        <strong>{money(semesterCost)}</strong>
+      </div>
+    </div>
+  );
+}
+
+function InstalmentCalculator({
+  semester,
+  onSemesterChange,
+  modulesPerSemester,
+  onModulesChange,
+  monthlyInstalment,
+  semesterCost
+}) {
+  return (
+    <div className="instalment-section">
+      <div className="instalment-summary-row">
+        <p>
+          Instalments <span>| Pay in 4 per semester</span>
+        </p>
+        <strong>{money(monthlyInstalment)} p/m</strong>
+      </div>
+
+      <div className="instalment-controls">
+        <div className="semester-selector">
+          <label className="radio-option">
+            <input
+              type="radio"
+              name="semester"
+              checked={semester === "semester1"}
+              onChange={() => onSemesterChange("semester1")}
+            />
+            <span>Semester 1</span>
+          </label>
+          <label className="radio-option">
+            <input
+              type="radio"
+              name="semester"
+              checked={semester === "semester2"}
+              onChange={() => onSemesterChange("semester2")}
+            />
+            <span>Semester 2</span>
+          </label>
+        </div>
+
+        <div className="module-load-selector">
+          <label htmlFor="module-count">Number of modules per semester</label>
+          <div className="stepper">
+            <button
+              type="button"
+              onClick={() => onModulesChange(Math.max(1, modulesPerSemester - 1))}
+              aria-label="Decrease module load"
+            >
+              -
+            </button>
+            <select
+              id="module-count"
+              value={modulesPerSemester}
+              onChange={(event) => onModulesChange(Number(event.target.value))}
+            >
+              {[1, 2, 3, 4, 5, 6].map((value) => (
+                <option value={value} key={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={() => onModulesChange(Math.min(6, modulesPerSemester + 1))}
+              aria-label="Increase module load"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <PaymentSchedule
+        semester={semester}
+        monthlyInstalment={monthlyInstalment}
+        semesterCost={semesterCost}
+      />
+    </div>
+  );
+}
+
+function TotalSummary({
+  mode,
+  compulsoryTotal,
+  electivesTotal,
+  auxiliaryTotal,
+  registrationFee,
+  totalAnnualCost,
+  selectedModules,
+  monthlyInstalment
+}) {
+  return (
+    <aside className={`total-summary ${mode === "upfront" ? "upfront-only" : ""}`}>
+      <h2>Total Estimated Annual Cost</h2>
+
+      {mode === "upfront" ? (
+        <div className="upfront-card">
+          <p>Upfront payment covers 6 modules total.</p>
+          <strong>{money(UPFRONT_TOTAL)}</strong>
+        </div>
+      ) : (
+        <>
+          <div className="summary-lines">
+            <div className="summary-line">
+              <span>Compulsory total</span>
+              <strong>{money(compulsoryTotal)}</strong>
+            </div>
+            <div className="summary-line">
+              <span>Electives total</span>
+              <strong>{money(electivesTotal)}</strong>
+            </div>
+            <div className="summary-line">
+              <span>Auxiliary fees</span>
+              <strong>{money(auxiliaryTotal)}</strong>
+            </div>
+            <div className="summary-line">
+              <span>Registration fee</span>
+              <strong>{money(registrationFee)}</strong>
+            </div>
+            <div className="summary-line emphasis">
+              <span>Estimated Monthly Instalment</span>
+              <strong>{money(monthlyInstalment)}</strong>
+            </div>
+          </div>
+
+          <div className="selected-module-pills">
+            {selectedModules.map((module) => (
+              <span className="pill" key={module}>
+                {module}
+              </span>
+            ))}
+          </div>
+
+          <div className="summary-total-row">
+            <span>Total</span>
+            <strong>{money(totalAnnualCost)}</strong>
+          </div>
+        </>
+      )}
+    </aside>
+  );
+}
+
+function App() {
+  const [paymentMode, setPaymentMode] = useState("monthly");
+  const [selectedElectives, setSelectedElectives] = useState(DEFAULT_SELECTED_ELECTIVES);
+  const [auxiliaryFees, setAuxiliaryFees] = useState({
+    cat: false,
+    rplApplication: false,
+    rplExemption: false
+  });
+  const [registrationType, setRegistrationType] = useState("firstTime");
+  const [semester, setSemester] = useState("semester1");
+  const [modulesPerSemester, setModulesPerSemester] = useState(3);
+  const [openAccordions, setOpenAccordions] = useState({
+    compulsory: false,
+    elective: false,
+    auxiliary: false,
+    registration: false,
+    instalment: false
+  });
+
+  const pricing = useMemo(() => {
+    if (paymentMode === "upfront") {
+      return {
+        compulsoryTotal: 0,
+        electivesTotal: 0,
+        auxiliaryTotal: 0,
+        registrationFee: 0,
+        totalAnnualCost: UPFRONT_TOTAL,
+        semesterCost: UPFRONT_TOTAL,
+        monthlyInstalment: UPFRONT_TOTAL / 4,
+        selectedModules: []
+      };
+    }
+
+    const hasDisasterRisk = selectedElectives.includes("Disaster Risk Management");
+    const extraModules = hasDisasterRisk ? DISASTER_AUTO_MODULES : [];
+    const allSelectedElectives = [...selectedElectives, ...extraModules];
+
+    const compulsoryTotal = COMPULSORY_MODULES.length * MODULE_PRICE;
+    const electivesTotal = allSelectedElectives.length * MODULE_PRICE;
+    const totalModuleCount = COMPULSORY_MODULES.length + allSelectedElectives.length;
+
+    const catTotal = auxiliaryFees.cat ? totalModuleCount * 900 : 0;
+    const rplApplicationTotal = auxiliaryFees.rplApplication ? 1040 : 0;
+    const rplExemptionTotal = auxiliaryFees.rplExemption ? totalModuleCount * 1280 : 0;
+
+    const auxiliaryTotal = catTotal + rplApplicationTotal + rplExemptionTotal;
+    const registrationFee = REGISTRATION_FEES[registrationType];
+
+    const totalAnnualCost = compulsoryTotal + electivesTotal + auxiliaryTotal + registrationFee;
+    const semesterCost = (totalAnnualCost / 2) * (modulesPerSemester / 3);
+    const monthlyInstalment = semesterCost / 4;
+
+    return {
+      compulsoryTotal,
+      electivesTotal,
+      auxiliaryTotal,
+      registrationFee,
+      totalAnnualCost,
+      semesterCost,
+      monthlyInstalment,
+      selectedModules: [...COMPULSORY_MODULES, ...allSelectedElectives]
+    };
+  }, [paymentMode, selectedElectives, auxiliaryFees, registrationType, modulesPerSemester]);
+
+  const toggleAccordion = (key) => {
+    setOpenAccordions((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const toggleElective = (elective) => {
+    setSelectedElectives((prev) =>
+      prev.includes(elective)
+        ? prev.filter((item) => item !== elective)
+        : [...prev, elective]
+    );
+  };
+
+  const toggleAuxiliary = (key) => {
+    setAuxiliaryFees((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  return (
+    <main className="prototype-page">
+      <section className="calculator-shell">
+        <PaymentModeToggle mode={paymentMode} onModeChange={setPaymentMode} />
+
+        <div className="calculator-layout">
+          {paymentMode === "monthly" ? (
+            <section className="calculator-content">
+              <>
+                <AccordionWrapper
+                  title="Compulsory Modules"
+                  open={openAccordions.compulsory}
+                  onToggle={() => toggleAccordion("compulsory")}
+                >
+                  <CompulsoryModules />
+                </AccordionWrapper>
+
+                <AccordionWrapper
+                  title="Elective Modules"
+                  open={openAccordions.elective}
+                  onToggle={() => toggleAccordion("elective")}
+                >
+                  <ElectiveModules
+                    selectedElectives={selectedElectives}
+                    onToggle={toggleElective}
+                  />
+                </AccordionWrapper>
+
+                <AccordionWrapper
+                  title="Auxiliary Fees"
+                  open={openAccordions.auxiliary}
+                  onToggle={() => toggleAccordion("auxiliary")}
+                >
+                  <AuxiliaryFees
+                    auxiliaryState={auxiliaryFees}
+                    onToggleAuxiliary={toggleAuxiliary}
+                  />
+                </AccordionWrapper>
+
+                <AccordionWrapper
+                  title="Registration Fee"
+                  open={openAccordions.registration}
+                  onToggle={() => toggleAccordion("registration")}
+                >
+                  <RegistrationFeeSelector
+                    registrationType={registrationType}
+                    onChangeRegistration={setRegistrationType}
+                  />
+                </AccordionWrapper>
+
+                <AccordionWrapper
+                  title="Instalment Structure"
+                  open={openAccordions.instalment}
+                  onToggle={() => toggleAccordion("instalment")}
+                >
+                  <InstalmentCalculator
+                    semester={semester}
+                    onSemesterChange={setSemester}
+                    modulesPerSemester={modulesPerSemester}
+                    onModulesChange={setModulesPerSemester}
+                    monthlyInstalment={pricing.monthlyInstalment}
+                    semesterCost={pricing.semesterCost}
+                  />
+                </AccordionWrapper>
+              </>
+            </section>
+          ) : null}
+
+          <TotalSummary
+            mode={paymentMode}
+            compulsoryTotal={pricing.compulsoryTotal}
+            electivesTotal={pricing.electivesTotal}
+            auxiliaryTotal={pricing.auxiliaryTotal}
+            registrationFee={pricing.registrationFee}
+            totalAnnualCost={pricing.totalAnnualCost}
+            selectedModules={pricing.selectedModules}
+            monthlyInstalment={pricing.monthlyInstalment}
+          />
+        </div>
+      </section>
+
+      <section className="funding-banner">
+        <p>Explore additional funding options including student loans and financial assistance.</p>
+        <div className="funding-buttons">
+          <button type="button">Explore Funding Options</button>
+          <button type="button" className="secondary">
+            Apply for Student Loan
+          </button>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
