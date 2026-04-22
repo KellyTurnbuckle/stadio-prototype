@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Option 2 | Smart Start / Small Pay Monthly</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <img class="logo" src="stadio-logo.png" alt="Stadio Higher Education logo" />
+      <a class="back-link" href="index.html">Back to all options</a>
+    </header>
+
+    <section class="page-head">
+      <h1>Start Small, Pay Monthly</h1>
+      <p>Full upfront versus monthly plan, with a strong monthly affordability focus and adjustable plan duration/load.</p>
+    </section>
+
+    <section class="prototype" id="opt2-core-root">
+      <section class="accordion">
+        <button class="acc-btn" type="button" data-acc="opt2-compulsory-panel">Compulsory Modules <span>▾</span></button>
+        <div class="acc-panel" id="opt2-compulsory-panel">
+          <div class="option-list">
+            <div class="option-item"><span>Entrepreneurship</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Fundamentals of Business Communication</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Fundamentals of Business Studies</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Management</span><strong>R2,770.00</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="accordion">
+        <button class="acc-btn" type="button" data-acc="opt2-elective-panel">Elective Modules <span>▾</span></button>
+        <div class="acc-panel" id="opt2-elective-panel">
+          <div class="option-list" id="opt2-electives">
+            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Accountancy</label><strong>R2,770.00</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Cybersecurity Management</label><strong>R2,770.00</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Marketing Management</label><strong>R2,770.00</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Project Management</label><strong>R2,770.00</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="accordion">
+        <button class="acc-btn" type="button" data-acc="opt2-fee-panel">Auxiliary / Ancillary Fees <span>▾</span></button>
+        <div class="acc-panel" id="opt2-fee-panel">
+          <div class="option-list" id="opt2-fees">
+            <div class="option-item"><label><input type="checkbox" data-price="900" /> Credit Accumulation and Transfer</label><strong>R900.00</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="1040" /> Recognition of Prior Learning</label><strong>R1,040.00</strong></div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="registration-card" id="opt2-registration-card">
+      <div class="registration-title">Registration Fee</div>
+      <div class="registration-options">
+        <label><input type="radio" name="opt2-registration" value="2080" checked /> First-time registration</label>
+        <label><input type="radio" name="opt2-registration" value="1090" /> Subsequent registration</label>
+      </div>
+      <div class="registration-selected">Selected registration fee: <span id="opt2-registration-value">R2,080.00</span></div>
+    </section>
+
+    <section class="prototype">
+      <div class="controls">
+        <div class="control">
+          <label for="opt2-term">Repayment duration</label>
+          <select id="opt2-term">
+            <option value="6">6 months</option>
+            <option value="8">8 months</option>
+            <option value="10">10 months</option>
+            <option value="12" selected>12 months</option>
+          </select>
+        </div>
+        <div class="control">
+          <label for="opt2-mpm">Modules per month</label>
+          <select id="opt2-mpm">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="control">
+          <label for="opt2-mps">Modules per semester</label>
+          <select id="opt2-mps">
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="split">
+        <article class="col">
+          <h3>Full Upfront Payment</h3>
+          <div class="big" id="opt2-upfront-price">R0.00</div>
+          <div class="small">Base total is fixed from selected modules + fees + registration.</div>
+        </article>
+
+        <article class="col">
+          <h3>Monthly Plan</h3>
+          <div class="small">From</div>
+          <div class="big" id="opt2-monthly">R0.00</div>
+          <div class="value-row"><span>Duration</span><strong id="opt2-duration-text">12 months</strong></div>
+          <div class="value-row"><span>Plan total</span><strong id="opt2-plan-total">R0.00</strong></div>
+        </article>
+      </div>
+
+      <div class="footer-total">
+        <span>Total Estimated Cost</span>
+        <span id="opt2-core-total">R0.00</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="prototypes.js"></script>
+</body>
+</html>

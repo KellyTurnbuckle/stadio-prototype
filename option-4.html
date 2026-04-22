@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Option 4 | Build Your Own Package</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <img class="logo" src="stadio-logo.png" alt="Stadio Higher Education logo" />
+      <a class="back-link" href="index.html">Back to all options</a>
+    </header>
+
+    <section class="page-head">
+      <h1>Build Your Own Package</h1>
+      <p>Full calculator with dynamic module/fee selection and payment mode switching.</p>
+    </section>
+
+    <section class="prototype" id="opt4-core-root">
+      <section class="accordion">
+        <button class="acc-btn" type="button" data-acc="opt4-compulsory-panel">Compulsory Modules <span>▾</span></button>
+        <div class="acc-panel" id="opt4-compulsory-panel">
+          <div class="option-list">
+            <div class="option-item"><span>Entrepreneurship</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Fundamentals of Business Communication</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Fundamentals of Business Studies</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Management</span><strong>R2,770.00</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="accordion">
+        <button class="acc-btn" type="button" data-acc="opt4-elective-panel">Elective Modules <span>▾</span></button>
+        <div class="acc-panel" id="opt4-elective-panel">
+          <div class="option-list" id="opt4-electives">
+            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Accountancy</label><strong>R2,770.00</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Cybersecurity Management</label><strong>R2,770.00</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Marketing Management</label><strong>R2,770.00</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Project Management</label><strong>R2,770.00</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="accordion">
+        <button class="acc-btn" type="button" data-acc="opt4-fee-panel">Auxiliary / Ancillary Fees <span>▾</span></button>
+        <div class="acc-panel" id="opt4-fee-panel">
+          <div class="option-list" id="opt4-fees">
+            <div class="option-item"><label><input type="checkbox" data-price="900" /> Credit Accumulation and Transfer</label><strong>R900.00</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="1040" /> Recognition of Prior Learning</label><strong>R1,040.00</strong></div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="registration-card" id="opt4-registration-card">
+      <div class="registration-title">Registration Fee</div>
+      <div class="registration-options">
+        <label><input type="radio" name="opt4-registration" value="2080" checked /> First-time registration</label>
+        <label><input type="radio" name="opt4-registration" value="1090" /> Subsequent registration</label>
+      </div>
+      <div class="registration-selected">Selected registration fee: <span id="opt4-registration-value">R2,080.00</span></div>
+    </section>
+
+    <section class="prototype">
+      <div class="controls">
+        <div class="control">
+          <label><input type="radio" name="opt4-payment" value="monthly" checked /> Monthly payment</label>
+        </div>
+        <div class="control">
+          <label><input type="radio" name="opt4-payment" value="upfront" /> Upfront payment</label>
+        </div>
+      </div>
+
+      <div class="split">
+        <article class="col">
+          <h3>Monthly Payment</h3>
+          <div class="big" id="opt4-monthly-view">R0.00</div>
+          <div class="small">Estimated monthly amount over 10 months.</div>
+        </article>
+        <article class="col">
+          <h3>Upfront Payment</h3>
+          <div class="big" id="opt4-upfront-view">R0.00</div>
+          <div class="small">8% discount applied for full upfront payment.</div>
+        </article>
+      </div>
+
+      <div class="footer-total">
+        <span>Total Estimated Cost</span>
+        <span id="opt4-core-total">R0.00</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="prototypes.js"></script>
+</body>
+</html>
