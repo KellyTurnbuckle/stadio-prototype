@@ -198,6 +198,14 @@ button.btn {
   margin-bottom: 18px;
 }
 
+.option4-head {
+  padding-top: 18px;
+}
+
+.option4-head p {
+  margin-bottom: 18px;
+}
+
 .page-head h1 {
   margin: 0 0 6px;
   font-size: clamp(1.35rem, 2.4vw, 1.9rem);
@@ -390,6 +398,33 @@ select {
 
 #opt3-focus-summary {
   margin-top: 10px;
+}
+
+.prototype.opt4-tabs-block {
+  padding: 0;
+  gap: 0;
+  margin-bottom: 14px;
+}
+
+.opt4-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.opt4-layout #opt4-core-root {
+  flex: 1 1 auto;
+}
+
+.opt4-cart {
+  width: min(360px, 100%);
+  flex: 0 0 340px;
+  position: sticky;
+  top: 16px;
+}
+
+.opt4-results {
+  margin-top: 14px;
 }
 
 .col {
@@ -630,6 +665,16 @@ select {
 
   .col:last-child {
     border-bottom: 0;
+  }
+
+  .opt4-layout {
+    flex-direction: column;
+  }
+
+  .opt4-cart {
+    width: 100%;
+    flex: 1 1 auto;
+    position: static;
   }
 }
 

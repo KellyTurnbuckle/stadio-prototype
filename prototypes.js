@@ -282,26 +282,72 @@
   })();
 
   // Option 4
-  initCore("opt4", function (state) {
-    var payment = document.querySelector("input[name='opt4-payment']:checked");
-    var mode = payment ? payment.value : "monthly";
-    var monthlyAmount = state.coreTotal / 10;
-    var upfrontAmount = state.coreTotal * 0.92;
+  (function initOption4() {
+    var root = document.getElementById("opt4-core-root");
+    if (!root) return;
+
+    var COMPULSORY_TOTAL_OPT4 = 6 * 2770;
+    var PAYMENT_COUNT = 8;
+    var activeMode = "monthly";
+
+    var electives = document.getElementById("opt4-electives");
+    var fees = document.getElementById("opt4-fees");
+
+    var cartCompulsory = document.getElementById("opt4-cart-compulsory");
+    var cartElective = document.getElementById("opt4-cart-elective");
+    var cartFees = document.getElementById("opt4-cart-fees");
+    var cartRegistration = document.getElementById("opt4-cart-registration");
+    var cartMonthly = document.getElementById("opt4-cart-monthly");
+    var cartTotal = document.getElementById("opt4-cart-total");
+    var cartMode = document.getElementById("opt4-cart-mode");
 
     var monthlyOut = document.getElementById("opt4-monthly-view");
     var upfrontOut = document.getElementById("opt4-upfront-view");
-    var coreOut = document.getElementById("opt4-core-total");
+    var monthlyWrap = document.getElementById("opt4-monthly-view-wrap");
+    var upfrontWrap = document.getElementById("opt4-upfront-view-wrap");
 
-    if (monthlyOut) monthlyOut.textContent = money(monthlyAmount);
-    if (upfrontOut) upfrontOut.textContent = money(upfrontAmount);
-    if (coreOut) coreOut.textContent = money(mode === "upfront" ? upfrontAmount : state.coreTotal);
-  });
+    var render = function () {
+      var electiveTotal = sumChecked(electives);
+      var feeTotal = sumChecked(fees);
+      var selectedReg = document.querySelector("input[name='opt4-registration']:checked");
+      var registrationFee = Number(selectedReg ? selectedReg.value : 2080);
+      var total = COMPULSORY_TOTAL_OPT4 + electiveTotal + feeTotal + registrationFee;
+      var monthlyAmount = total / PAYMENT_COUNT;
+      var upfrontAmount = total * 0.92;
 
-  document.querySelectorAll("input[name='opt4-payment']").forEach(function (el) {
-    el.addEventListener("change", function () {
-      var evt = new Event("change", { bubbles: true });
-      var reg = document.querySelector("input[name='opt4-registration']:checked");
-      if (reg) reg.dispatchEvent(evt);
+      if (cartCompulsory) cartCompulsory.textContent = money(COMPULSORY_TOTAL_OPT4);
+      if (cartElective) cartElective.textContent = money(electiveTotal);
+      if (cartFees) cartFees.textContent = money(feeTotal);
+      if (cartRegistration) cartRegistration.textContent = money(registrationFee);
+      if (cartMonthly) cartMonthly.textContent = money(monthlyAmount);
+      if (cartTotal) cartTotal.textContent = money(activeMode === "upfront" ? upfrontAmount : total);
+      if (cartMode) cartMode.textContent = "Payment mode: " + (activeMode === "upfront" ? "Upfront Payment" : "Monthly Payment");
+
+      if (monthlyOut) monthlyOut.textContent = money(monthlyAmount);
+      if (upfrontOut) upfrontOut.textContent = money(upfrontAmount);
+    };
+
+    if (electives) electives.addEventListener("change", render);
+    if (fees) fees.addEventListener("change", render);
+    document.querySelectorAll("input[name='opt4-registration']").forEach(function (el) {
+      el.addEventListener("change", render);
     });
-  });
+
+    document.querySelectorAll("[data-opt4-pay]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll("[data-opt4-pay]").forEach(function (x) {
+          x.classList.remove("active");
+        });
+        btn.classList.add("active");
+        activeMode = btn.getAttribute("data-opt4-pay") || "monthly";
+        if (monthlyWrap && upfrontWrap) {
+          monthlyWrap.classList.toggle("hidden", activeMode !== "monthly");
+          upfrontWrap.classList.toggle("hidden", activeMode !== "upfront");
+        }
+        render();
+      });
+    });
+
+    render();
+  })();
 })();
