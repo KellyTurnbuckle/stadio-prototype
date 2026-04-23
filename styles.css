@@ -43,7 +43,7 @@ a {
 }
 
 .logo {
-  width: 260px;
+  width: 230px;
   height: auto;
   display: block;
 }
@@ -165,6 +165,37 @@ button.btn {
   padding: 16px;
   margin-bottom: 14px;
   box-shadow: var(--shadow);
+}
+
+.plain-heading {
+  margin-bottom: 12px;
+}
+
+.plain-heading h1 {
+  margin: 0 0 6px;
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+}
+
+.plain-heading p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.option2-head {
+  padding-top: 14px;
+}
+
+.option2-head .option1-course-note {
+  margin-bottom: 18px;
+}
+
+.option3-head {
+  padding-top: 18px;
+  margin-bottom: 18px;
+}
+
+.option3-head p {
+  margin-bottom: 18px;
 }
 
 .page-head h1 {
@@ -333,6 +364,34 @@ select {
   border: 1px solid var(--line);
 }
 
+.split.edge-cards {
+  margin-left: -14px;
+  margin-right: -14px;
+}
+
+.prototype.opt2-payment-wrap {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.prototype.opt3-payment-block {
+  padding: 0;
+  gap: 0;
+  margin-bottom: 18px;
+}
+
+.prototype.opt3-payment-block .tab-panel {
+  padding: 12px;
+}
+
+#opt3-core-root {
+  margin-bottom: 18px;
+}
+
+#opt3-focus-summary {
+  margin-top: 10px;
+}
+
 .col {
   flex: 1;
   border-right: 1px solid var(--line);
@@ -350,6 +409,23 @@ select {
 .col h3 {
   margin: 0;
   font-size: 1.02rem;
+}
+
+.heading-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.inline-action {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--ink);
+  text-decoration: underline;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .label-row,
@@ -451,6 +527,24 @@ select {
   box-shadow: none;
 }
 
+.prototype.edge-accordions {
+  padding: 0;
+  gap: 0;
+}
+
+.prototype.edge-accordions .accordion {
+  border-left: 0;
+  border-right: 0;
+}
+
+.prototype.edge-accordions .accordion:first-child {
+  border-top: 0;
+}
+
+.prototype.edge-accordions .accordion:last-child {
+  border-bottom: 0;
+}
+
 .prototype.opt1-edge .accordion {
   border-left: 0;
   border-right: 0;
@@ -488,6 +582,30 @@ select {
 
 .option1-inline-controls .control label {
   font-weight: 500;
+}
+
+.duration-plain {
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.selection-summary {
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.selection-summary h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.selection-summary ul {
+  margin: 0;
+  padding-left: 18px;
 }
 
 .footer-total {

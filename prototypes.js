@@ -174,44 +174,112 @@
 
   // Option 2
   initCore("opt2", function (state) {
-    var term = Number((document.getElementById("opt2-term") || {}).value || 12);
-    var mpm = Number((document.getElementById("opt2-mpm") || {}).value || 1);
-    var mps = Number((document.getElementById("opt2-mps") || {}).value || 3);
-
+    var term = 8;
     var upfront = state.coreTotal;
-    var loadFactor = ((mpm / 1) + (mps / 3)) / 2;
-    var planTotal = upfront * loadFactor;
+    var planTotal = upfront;
     var monthly = planTotal / term;
 
     var upfrontOut = document.getElementById("opt2-upfront-price");
     var monthlyOut = document.getElementById("opt2-monthly");
     var durationOut = document.getElementById("opt2-duration-text");
     var planOut = document.getElementById("opt2-plan-total");
+    var breakdownList = document.getElementById("opt2-breakdown-list");
 
     if (upfrontOut) upfrontOut.textContent = money(upfront);
     if (monthlyOut) monthlyOut.textContent = money(monthly);
-    if (durationOut) durationOut.textContent = term + " months";
+    if (durationOut) durationOut.textContent = "8 months (4 per semester)";
     if (planOut) planOut.textContent = money(planTotal);
-  });
 
-  ["opt2-term", "opt2-mpm", "opt2-mps"].forEach(function (id) {
-    var el = document.getElementById(id);
-    if (el) {
-      el.addEventListener("change", function () {
-        var evt = new Event("change", { bubbles: true });
-        var reg = document.querySelector("input[name='opt2-registration']:checked");
-        if (reg) reg.dispatchEvent(evt);
-      });
+    if (breakdownList) {
+      var rows = [];
+      for (var i = 0; i < term; i += 1) {
+        rows.push("<div class='schedule-item'><span>" + monthDateLabel(i) + "</span><strong>" + money(monthly) + "</strong></div>");
+      }
+      breakdownList.innerHTML = rows.join("");
     }
   });
 
+  (function initOpt2Breakdown() {
+    var toggle = document.getElementById("opt2-breakdown-toggle");
+    var list = document.getElementById("opt2-breakdown-list");
+    if (!toggle || !list) return;
+    toggle.addEventListener("click", function () {
+      var isOpen = !list.classList.contains("hidden");
+      list.classList.toggle("hidden", isOpen);
+      toggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
+      toggle.textContent = isOpen ? "View Breakdown" : "Hide Breakdown";
+    });
+  })();
+
   // Option 3
-  initCore("opt3", function (state) {
+  (function initOption3() {
+    var root = document.getElementById("opt3-core-root");
+    if (!root) return;
+
+    var COMPULSORY_TOTAL_OPT3 = 16620;
+    var FIXED_ELECTIVE_TOTAL = 2 * 2770;
+    var PAYMENT_COUNT = 8;
+    var focusModules = {
+      accountancy: ["Accountancy for Managers 1", "Income Tax 1"],
+      "aviation-management": ["Aviation Operations 1", "Aviation Safety Management 1"],
+      cybersecurity: ["Cybersecurity Fundamentals 1", "Cyber Risk Management 1"],
+      "data-management": ["Data Management Fundamentals 1", "Applied Data Practices 1"],
+      "disaster-risk-management": ["Disaster Risk Reduction 1", "Project Management 1"],
+      entrepreneurship: ["Entrepreneurial Planning 1", "Small Business Operations 1"],
+      "fleet-management": ["Fleet Operations 1", "Fleet Cost Management 1"],
+      "fire-technology-management": ["Fire Dynamics 1", "Fire Safety Systems 1"],
+      "human-resources-management": ["Human Resource Management 1", "Labour Relations 1"]
+    };
+
+    var fees = document.getElementById("opt3-fees");
+    var regValue = document.getElementById("opt3-registration-value");
     var upfrontOut = document.getElementById("opt3-upfront-amount");
     var monthlyOut = document.getElementById("opt3-monthly-amount");
-    if (upfrontOut) upfrontOut.textContent = money(state.coreTotal);
-    if (monthlyOut) monthlyOut.textContent = money(state.coreTotal / 10);
-  });
+    var monthlyBreakdown = document.getElementById("opt3-monthly-breakdown");
+    var focusModulesOut = document.getElementById("opt3-focus-modules");
+
+    var render = function () {
+      var feeTotal = sumChecked(fees);
+      var selectedReg = document.querySelector("input[name='opt3-registration']:checked");
+      var registrationFee = Number(selectedReg ? selectedReg.value : 2080);
+      var selectedFocus = document.querySelector("input[name='opt3-focus-area']:checked");
+      var focusKey = selectedFocus ? selectedFocus.value : "";
+      var electiveTotal = FIXED_ELECTIVE_TOTAL;
+      var total = COMPULSORY_TOTAL_OPT3 + electiveTotal + feeTotal + registrationFee;
+      var monthly = total / PAYMENT_COUNT;
+
+      if (regValue) regValue.textContent = money(registrationFee);
+      if (upfrontOut) upfrontOut.textContent = money(total);
+      if (monthlyOut) monthlyOut.textContent = money(monthly);
+
+      if (focusModulesOut) {
+        if (!focusKey || !focusModules[focusKey]) {
+          focusModulesOut.innerHTML = "<li>No focus area selected yet.</li>";
+        } else {
+          var modules = focusModules[focusKey];
+          focusModulesOut.innerHTML = "<li>" + modules[0] + "</li><li>" + modules[1] + "</li>";
+        }
+      }
+
+      if (monthlyBreakdown) {
+        var rows = [];
+        for (var i = 0; i < PAYMENT_COUNT; i += 1) {
+          rows.push("<div class='schedule-item'><span>" + monthDateLabel(i) + "</span><strong>" + money(monthly) + "</strong></div>");
+        }
+        monthlyBreakdown.innerHTML = rows.join("");
+      }
+    };
+
+    if (fees) fees.addEventListener("change", render);
+    document.querySelectorAll("input[name='opt3-registration']").forEach(function (el) {
+      el.addEventListener("change", render);
+    });
+    document.querySelectorAll("input[name='opt3-focus-area']").forEach(function (el) {
+      el.addEventListener("change", render);
+    });
+
+    render();
+  })();
 
   // Option 4
   initCore("opt4", function (state) {

@@ -18,12 +18,12 @@
 
   <main class="shell page-main">
 
-    <section class="page-head">
-      <h1>Start Small, Pay Monthly</h1>
-      <p>Full upfront versus monthly plan, with a strong monthly affordability focus and adjustable plan duration/load.</p>
+    <section class="plain-heading option2-head">
+      <h1>Start small with monthly payments</h1>
+      <p class="option1-course-note">This example is based on the Contact Learning Higher Certificate in Management course.</p>
     </section>
 
-    <section class="prototype" id="opt2-core-root">
+    <section class="prototype edge-accordions" id="opt2-core-root">
       <section class="accordion">
         <button class="acc-btn" type="button" data-acc="opt2-compulsory-panel">Compulsory Modules <span>▾</span></button>
         <div class="acc-panel" id="opt2-compulsory-panel">
@@ -49,7 +49,7 @@
       </section>
 
       <section class="accordion">
-        <button class="acc-btn" type="button" data-acc="opt2-fee-panel">Auxiliary / Ancillary Fees <span>▾</span></button>
+        <button class="acc-btn" type="button" data-acc="opt2-fee-panel">Ancillary Fees <span>▾</span></button>
         <div class="acc-panel" id="opt2-fee-panel">
           <div class="option-list" id="opt2-fees">
             <div class="option-item"><label><input type="checkbox" data-price="900" /> Credit Accumulation and Transfer</label><strong>R900.00</strong></div>
@@ -66,42 +66,12 @@
       </div>
       <div class="registration-options">
         <label><input type="radio" name="opt2-registration" value="2080" checked /> First-time registration fee</label>
-        <label><input type="radio" name="opt2-registration" value="2080" /> Subsequent registration fee</label>
+        <label><input type="radio" name="opt2-registration" value="1080" /> Subsequent registration fee</label>
       </div>
     </section>
 
-    <section class="prototype">
-      <div class="controls">
-        <div class="control">
-          <label for="opt2-term">Repayment duration</label>
-          <select id="opt2-term">
-            <option value="6">6 months</option>
-            <option value="8">8 months</option>
-            <option value="10">10 months</option>
-            <option value="12" selected>12 months</option>
-          </select>
-        </div>
-        <div class="control">
-          <label for="opt2-mpm">Modules per month</label>
-          <select id="opt2-mpm">
-            <option value="1" selected>1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </div>
-        <div class="control">
-          <label for="opt2-mps">Modules per semester</label>
-          <select id="opt2-mps">
-            <option value="2">2</option>
-            <option value="3" selected>3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="split">
+    <section class="prototype opt2-payment-wrap">
+      <div class="split edge-cards">
         <article class="col">
           <h3>Full Upfront Payment</h3>
           <div class="big" id="opt2-upfront-price">R0.00</div>
@@ -109,17 +79,15 @@
         </article>
 
         <article class="col">
-          <h3>Monthly Plan</h3>
-          <div class="small">From</div>
+          <div class="heading-action-row">
+            <h3>Monthly Plan from</h3>
+            <button class="inline-action" type="button" id="opt2-breakdown-toggle" aria-expanded="false">View Breakdown</button>
+          </div>
           <div class="big" id="opt2-monthly">R0.00</div>
-          <div class="value-row"><span>Duration</span><strong id="opt2-duration-text">12 months</strong></div>
+          <div class="value-row"><span>Payment plan</span><span class="duration-plain" id="opt2-duration-text">8 months (4 per semester)</span></div>
           <div class="value-row"><span>Plan total</span><strong id="opt2-plan-total">R0.00</strong></div>
+          <div class="schedule-list hidden" id="opt2-breakdown-list"></div>
         </article>
-      </div>
-
-      <div class="footer-total">
-        <span>Total Estimated Cost</span>
-        <span id="opt2-core-total">R0.00</span>
       </div>
     </section>
   </main>

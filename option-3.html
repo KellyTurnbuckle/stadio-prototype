@@ -18,38 +18,58 @@
 
   <main class="shell page-main">
 
-    <section class="page-head">
+    <section class="plain-heading option3-head">
       <h1>Simplified Payment View</h1>
-      <p>Standard calculator layout with core sections and single-view tabs for payment focus.</p>
+      <p>This is based on the Higher Certificate in Management for distance learning.</p>
     </section>
 
-    <section class="prototype" id="opt3-core-root">
+    <section class="prototype opt3-payment-block">
+      <div class="tab-row">
+        <button class="tab-btn active" type="button" data-tab="upfront">Upfront Payment</button>
+        <button class="tab-btn" type="button" data-tab="monthly">Monthly Payment</button>
+      </div>
+    </section>
+
+    <section class="prototype edge-accordions" id="opt3-core-root">
       <section class="accordion">
         <button class="acc-btn" type="button" data-acc="opt3-compulsory-panel">Compulsory Modules <span>▾</span></button>
         <div class="acc-panel" id="opt3-compulsory-panel">
           <div class="option-list">
-            <div class="option-item"><span>Entrepreneurship</span><strong>~R6,540</strong></div>
-            <div class="option-item"><span>Fundamentals of Business Communication</span><strong>~R6,540</strong></div>
-            <div class="option-item"><span>Fundamentals of Business Studies</span><strong>~R6,540</strong></div>
-            <div class="option-item"><span>Management</span><strong>~R6,540</strong></div>
-            <div class="option-item"><span>Project Management 1</span><strong>~R6,540</strong></div>
+            <div class="option-item"><span>Entrepreneurship</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Fundamentals of Business Communication</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Fundamentals of Business Study</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Management</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Elective 1</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Elective 2</span><strong>R2,770.00</strong></div>
           </div>
         </div>
       </section>
 
       <section class="accordion">
-        <button class="acc-btn" type="button" data-acc="opt3-elective-panel">Elective Modules <span>▾</span></button>
+        <button class="acc-btn" type="button" data-acc="opt3-elective-panel">Elective Focus Areas <span>▾</span></button>
         <div class="acc-panel" id="opt3-elective-panel">
-          <div class="option-list" id="opt3-electives">
-            <div class="option-item"><label><input type="checkbox" data-price="6550" /> Introduction to Business Law</label><strong>~R6,550</strong></div>
-            <div class="option-item"><label><input type="checkbox" data-price="6550" /> Logistics Management 1</label><strong>~R6,550</strong></div>
-            <div class="option-item"><label><input type="checkbox" data-price="6550" /> Marketing Management</label><strong>~R6,550</strong></div>
+          <div class="option-list" id="opt3-focus-areas">
+            <div class="option-item"><label><input type="radio" name="opt3-focus-area" value="accountancy" /> Accountancy</label><strong>2 modules</strong></div>
+            <div class="option-item"><label><input type="radio" name="opt3-focus-area" value="aviation-management" /> Aviation Management</label><strong>2 modules</strong></div>
+            <div class="option-item"><label><input type="radio" name="opt3-focus-area" value="cybersecurity" /> Cybersecurity</label><strong>2 modules</strong></div>
+            <div class="option-item"><label><input type="radio" name="opt3-focus-area" value="data-management" /> Data Management</label><strong>2 modules</strong></div>
+            <div class="option-item"><label><input type="radio" name="opt3-focus-area" value="disaster-risk-management" /> Disaster Risk Management</label><strong>2 modules</strong></div>
+            <div class="option-item"><label><input type="radio" name="opt3-focus-area" value="entrepreneurship" /> Entrepreneurship</label><strong>2 modules</strong></div>
+            <div class="option-item"><label><input type="radio" name="opt3-focus-area" value="fleet-management" /> Fleet Management</label><strong>2 modules</strong></div>
+            <div class="option-item"><label><input type="radio" name="opt3-focus-area" value="fire-technology-management" /> Fire Technology Management</label><strong>2 modules</strong></div>
+            <div class="option-item"><label><input type="radio" name="opt3-focus-area" value="human-resources-management" /> Human Resources Management</label><strong>2 modules</strong></div>
+          </div>
+          <div class="selection-summary" id="opt3-focus-summary">
+            <h4>Selected Focus Area Modules</h4>
+            <ul id="opt3-focus-modules">
+              <li>No focus area selected yet.</li>
+            </ul>
           </div>
         </div>
       </section>
 
       <section class="accordion">
-        <button class="acc-btn" type="button" data-acc="opt3-fee-panel">Auxiliary / Ancillary Fees <span>▾</span></button>
+        <button class="acc-btn" type="button" data-acc="opt3-fee-panel">Ancillary Fees <span>▾</span></button>
         <div class="acc-panel" id="opt3-fee-panel">
           <div class="option-list" id="opt3-fees">
             <div class="option-item"><label><input type="checkbox" data-price="900" /> Credit Accumulation and Transfer</label><strong>R900.00</strong></div>
@@ -66,21 +86,16 @@
       </div>
       <div class="registration-options">
         <label><input type="radio" name="opt3-registration" value="2080" checked /> First-time registration fee</label>
-        <label><input type="radio" name="opt3-registration" value="2080" /> Subsequent registration fee</label>
+        <label><input type="radio" name="opt3-registration" value="1080" /> Subsequent registration fee</label>
       </div>
     </section>
 
-    <section class="prototype">
-      <div class="tab-row">
-        <button class="tab-btn active" type="button" data-tab="upfront">Upfront Payment</button>
-        <button class="tab-btn" type="button" data-tab="monthly">Monthly Payment</button>
-      </div>
-
+    <section class="prototype opt3-results">
       <div id="tab-upfront" class="tab-panel">
         <div class="row">
           <div>
             <strong>Upfront Total</strong>
-            <p class="small">Single payment view</p>
+            <p class="small">Single payment for the full selected package.</p>
           </div>
           <div class="big" id="opt3-upfront-amount">R0.00</div>
         </div>
@@ -90,15 +105,11 @@
         <div class="row">
           <div>
             <strong>Monthly Instalment</strong>
-            <p class="small">Estimated over 10 months</p>
+            <p class="small">8 payments total (4 per semester).</p>
           </div>
           <div class="big" id="opt3-monthly-amount">R0.00</div>
         </div>
-      </div>
-
-      <div class="footer-total">
-        <span>Total Estimated Cost</span>
-        <span id="opt3-core-total">R0.00</span>
+        <div class="schedule-list" id="opt3-monthly-breakdown"></div>
       </div>
     </section>
   </main>
