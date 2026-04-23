@@ -40,7 +40,6 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 18px;
 }
 
 .logo {
@@ -54,6 +53,31 @@ a {
   padding: 8px 12px;
   background: #fff;
   font-weight: 600;
+}
+
+.site-nav {
+  width: 100%;
+  background: #565759;
+}
+
+.site-nav .shell {
+  margin: 0 auto;
+}
+
+.site-nav .topbar {
+  min-height: 74px;
+}
+
+.site-nav .back-link {
+  background: #fff;
+}
+
+.page-main {
+  margin-top: 20px;
+}
+
+.landing-main .standalone-heading {
+  padding-top: 30px;
 }
 
 .standalone-heading {
@@ -96,6 +120,10 @@ a {
   color: var(--muted);
 }
 
+.landing-main .card p {
+  padding-bottom: 10px;
+}
+
 .btn,
 button.btn {
   margin-top: auto;
@@ -116,6 +144,19 @@ button.btn {
   justify-content: center;
   line-height: 1;
   text-align: center;
+}
+
+.landing-main .card .btn {
+  margin-top: 10px;
+}
+
+.landing-main .standalone-subtext {
+  padding-bottom: 14px;
+  margin-bottom: 24px;
+}
+
+.landing-main .cards {
+  padding-top: 8px;
 }
 
 .page-head {
@@ -219,6 +260,18 @@ button.btn {
 }
 
 .registration-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.registration-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.registration-header-amount {
   font-size: 1rem;
   font-weight: 700;
 }
@@ -380,6 +433,63 @@ select {
   gap: 10px;
 }
 
+.option1-heading-strip {
+  padding: 10px 0;
+  margin-bottom: 12px;
+}
+
+.option1-heading-strip h1 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 700;
+  text-transform: none;
+}
+
+.prototype.opt1-edge {
+  padding: 0;
+  gap: 0;
+  box-shadow: none;
+}
+
+.prototype.opt1-edge .accordion {
+  border-left: 0;
+  border-right: 0;
+}
+
+.prototype.opt1-edge .accordion:first-child {
+  border-top: 0;
+}
+
+.prototype.opt1-edge .accordion:last-child {
+  border-bottom: 0;
+}
+
+.registration-card.opt1-registration .registration-options label {
+  font-weight: 400;
+}
+
+.option1-course-note {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+}
+
+.opt1-pricing .col {
+  padding: 8px;
+  gap: 8px;
+}
+
+.option1-inline-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding-bottom: 4px;
+}
+
+.option1-inline-controls .control label {
+  font-weight: 500;
+}
+
 .footer-total {
   border: 1px solid var(--line);
   background: #f3f6fb;
@@ -427,6 +537,8 @@ select {
   .topbar {
     flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
+    padding: 10px 0;
   }
 
   .registration-options {

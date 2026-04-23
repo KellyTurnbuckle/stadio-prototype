@@ -12,6 +12,8 @@
   }
 
   var COMPULSORY_TOTAL = 4 * 2770;
+  var OPTION1_BASE_TOTAL = 42680;
+  var OPTION1_BASE_REGISTRATION = 2080;
 
   function sumChecked(container) {
     if (!container) return 0;
@@ -53,6 +55,26 @@
     }
   }
 
+  function monthDateLabel(index) {
+    var months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+    var startMonth = 1; // February
+    var m = (startMonth + index) % 12;
+    return "1 " + months[m];
+  }
+
   function initCore(prefix, onRender) {
     var root = document.getElementById(prefix + "-core-root");
     if (!root) return;
@@ -67,7 +89,12 @@
       var feeTotal = sumChecked(fees);
       var selectedReg = document.querySelector("input[name='" + prefix + "-registration']:checked");
       var registrationFee = Number(selectedReg ? selectedReg.value : 2080);
-      var coreTotal = COMPULSORY_TOTAL + electiveTotal + feeTotal + registrationFee;
+      var coreTotal;
+      if (prefix === "opt2" || prefix === "opt3" || prefix === "opt4") {
+        coreTotal = OPTION1_BASE_TOTAL + electiveTotal + feeTotal + (registrationFee - OPTION1_BASE_REGISTRATION);
+      } else {
+        coreTotal = COMPULSORY_TOTAL + electiveTotal + feeTotal + registrationFee;
+      }
 
       if (regValue) regValue.textContent = money(registrationFee);
       if (coreTotalOut) coreTotalOut.textContent = money(coreTotal);
@@ -93,57 +120,57 @@
 
   setupAccordionAndTabs();
 
-  // Option 1
-  initCore("opt1", function (state) {
-    var term = Number((document.getElementById("opt1-term") || {}).value || 10);
-    var mpm = Number((document.getElementById("opt1-mpm") || {}).value || 1);
-    var mps = Number((document.getElementById("opt1-mps") || {}).value || 3);
-
-    var full = state.coreTotal;
-    var discount = full * 0.08;
-    var upfront = full - discount;
-
-    var loadFactor = ((mpm / 1) + (mps / 3)) / 2;
-    var monthlyPlanTotal = full * loadFactor;
-    var deposit = Math.min(monthlyPlanTotal * 0.35, 4000 * mpm);
-    var monthly = (monthlyPlanTotal - deposit) / term;
-
+  // Option 1 (final fixed example values)
+  (function initOption1Final() {
+    var regValue = document.getElementById("opt1-registration-value");
+    var schedule = document.getElementById("opt1-schedule");
+    var electiveWrap = document.getElementById("opt1-electives");
+    var feeWrap = document.getElementById("opt1-fees");
     var fullOut = document.getElementById("opt1-full-price");
     var discountOut = document.getElementById("opt1-discount-value");
-    var upfrontOut = document.getElementById("opt1-upfront-price");
     var saveOut = document.getElementById("opt1-save-value");
     var depositOut = document.getElementById("opt1-deposit");
     var monthlyOut = document.getElementById("opt1-monthly");
-    var termOut = document.getElementById("opt1-term-text");
-    var schedule = document.getElementById("opt1-schedule");
+    var monthlyTotalOut = document.getElementById("opt1-monthly-total");
 
-    if (fullOut) fullOut.textContent = money(full);
-    if (discountOut) discountOut.textContent = "-" + money(discount);
-    if (upfrontOut) upfrontOut.textContent = money(upfront);
-    if (saveOut) saveOut.textContent = money(discount);
-    if (depositOut) depositOut.textContent = money(deposit);
-    if (monthlyOut) monthlyOut.textContent = money(monthly);
-    if (termOut) termOut.textContent = String(term);
+    if (!schedule) return;
 
-    if (schedule) {
-      var lines = [];
-      for (var i = 1; i <= term; i += 1) {
-        lines.push("<div class='schedule-item'><span>Month " + i + "</span><strong>" + money(monthly) + "</strong></div>");
+    var baseTotal = 42680;
+    var baseRegistration = 2080;
+    var deposit = 4000;
+    var paymentCount = 10;
+
+    var render = function () {
+      var electiveTotal = sumChecked(electiveWrap);
+      var feeTotal = sumChecked(feeWrap);
+      var selectedReg = document.querySelector("input[name='opt1-registration']:checked");
+      var registrationFee = Number(selectedReg ? selectedReg.value : 2080);
+      var total = baseTotal + electiveTotal + feeTotal + (registrationFee - baseRegistration);
+      var discountValue = total * 0.08;
+      var monthly = (total - deposit) / paymentCount;
+
+      if (regValue) regValue.textContent = money(registrationFee);
+      if (fullOut) fullOut.textContent = money(total);
+      if (discountOut) discountOut.textContent = "-" + money(discountValue);
+      if (saveOut) saveOut.textContent = money(discountValue);
+      if (depositOut) depositOut.textContent = money(deposit);
+      if (monthlyOut) monthlyOut.textContent = money(monthly);
+      if (monthlyTotalOut) monthlyTotalOut.textContent = money(total);
+
+      var rows = [];
+      for (var i = 0; i < paymentCount; i += 1) {
+        rows.push("<div class='schedule-item'><span>" + monthDateLabel(i) + "</span><strong>" + money(monthly) + "</strong></div>");
       }
-      schedule.innerHTML = lines.join("");
-    }
-  });
+      schedule.innerHTML = rows.join("");
+    };
 
-  ["opt1-term", "opt1-mpm", "opt1-mps"].forEach(function (id) {
-    var el = document.getElementById(id);
-    if (el) {
-      el.addEventListener("change", function () {
-        var evt = new Event("change", { bubbles: true });
-        var reg = document.querySelector("input[name='opt1-registration']:checked");
-        if (reg) reg.dispatchEvent(evt);
-      });
-    }
-  });
+    if (electiveWrap) electiveWrap.addEventListener("change", render);
+    if (feeWrap) feeWrap.addEventListener("change", render);
+    document.querySelectorAll("input[name='opt1-registration']").forEach(function (el) {
+      el.addEventListener("change", render);
+    });
+    render();
+  })();
 
   // Option 2
   initCore("opt2", function (state) {

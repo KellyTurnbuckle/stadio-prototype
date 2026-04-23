@@ -7,11 +7,16 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <img class="logo" src="stadio-logo.png" alt="Stadio Higher Education logo" />
-      <a class="back-link" href="index.html">Back to all options</a>
-    </header>
+  <header class="site-nav">
+    <div class="shell">
+      <div class="topbar">
+        <img class="logo" src="stadio-logo-nav.png" alt="Stadio Higher Education logo" />
+        <a class="back-link" href="index.html">Back to all options</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell page-main">
 
     <section class="page-head">
       <h1>Start Small, Pay Monthly</h1>
@@ -23,10 +28,11 @@
         <button class="acc-btn" type="button" data-acc="opt2-compulsory-panel">Compulsory Modules <span>▾</span></button>
         <div class="acc-panel" id="opt2-compulsory-panel">
           <div class="option-list">
-            <div class="option-item"><span>Entrepreneurship</span><strong>R2,770.00</strong></div>
-            <div class="option-item"><span>Fundamentals of Business Communication</span><strong>R2,770.00</strong></div>
-            <div class="option-item"><span>Fundamentals of Business Studies</span><strong>R2,770.00</strong></div>
-            <div class="option-item"><span>Management</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Entrepreneurship</span><strong>~R6,540</strong></div>
+            <div class="option-item"><span>Fundamentals of Business Communication</span><strong>~R6,540</strong></div>
+            <div class="option-item"><span>Fundamentals of Business Studies</span><strong>~R6,540</strong></div>
+            <div class="option-item"><span>Management</span><strong>~R6,540</strong></div>
+            <div class="option-item"><span>Project Management 1</span><strong>~R6,540</strong></div>
           </div>
         </div>
       </section>
@@ -35,10 +41,9 @@
         <button class="acc-btn" type="button" data-acc="opt2-elective-panel">Elective Modules <span>▾</span></button>
         <div class="acc-panel" id="opt2-elective-panel">
           <div class="option-list" id="opt2-electives">
-            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Accountancy</label><strong>R2,770.00</strong></div>
-            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Cybersecurity Management</label><strong>R2,770.00</strong></div>
-            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Marketing Management</label><strong>R2,770.00</strong></div>
-            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Project Management</label><strong>R2,770.00</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="6550" /> Introduction to Business Law</label><strong>~R6,550</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="6550" /> Logistics Management 1</label><strong>~R6,550</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="6550" /> Marketing Management</label><strong>~R6,550</strong></div>
           </div>
         </div>
       </section>
@@ -54,13 +59,15 @@
       </section>
     </section>
 
-    <section class="registration-card" id="opt2-registration-card">
-      <div class="registration-title">Registration Fee</div>
-      <div class="registration-options">
-        <label><input type="radio" name="opt2-registration" value="2080" checked /> First-time registration</label>
-        <label><input type="radio" name="opt2-registration" value="1090" /> Subsequent registration</label>
+    <section class="registration-card opt1-registration" id="opt2-registration-card">
+      <div class="registration-header-row">
+        <div class="registration-title">Registration Fee</div>
+        <div class="registration-header-amount" id="opt2-registration-value">R2,080.00</div>
       </div>
-      <div class="registration-selected">Selected registration fee: <span id="opt2-registration-value">R2,080.00</span></div>
+      <div class="registration-options">
+        <label><input type="radio" name="opt2-registration" value="2080" checked /> First-time registration fee</label>
+        <label><input type="radio" name="opt2-registration" value="2080" /> Subsequent registration fee</label>
+      </div>
     </section>
 
     <section class="prototype">

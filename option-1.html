@@ -7,26 +7,32 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <img class="logo" src="stadio-logo.png" alt="Stadio Higher Education logo" />
-      <a class="back-link" href="index.html">Back to all options</a>
-    </header>
+  <header class="site-nav">
+    <div class="shell">
+      <div class="topbar">
+        <img class="logo" src="stadio-logo-nav.png" alt="Stadio Higher Education logo" />
+        <a class="back-link" href="index.html">Back to all options</a>
+      </div>
+    </div>
+  </header>
 
-    <section class="page-head">
-      <h1>Discount for Upfront Payments</h1>
-      <p>Fixed 8% upfront discount vs month-to-month payment, with adjustable repayment term and study load.</p>
+  <main class="shell page-main">
+
+    <section class="option1-heading-strip">
+      <h1>Discounts for upfront payments</h1>
+      <p class="option1-course-note">This example is based on the Contact Learning Higher Certificate in Management course.</p>
     </section>
 
-    <section class="prototype" id="opt1-core-root">
+    <section class="prototype opt1-edge">
       <section class="accordion">
         <button class="acc-btn" type="button" data-acc="opt1-compulsory-panel">Compulsory Modules <span>▾</span></button>
         <div class="acc-panel" id="opt1-compulsory-panel">
           <div class="option-list">
-            <div class="option-item"><span>Entrepreneurship</span><strong>R2,770.00</strong></div>
-            <div class="option-item"><span>Fundamentals of Business Communication</span><strong>R2,770.00</strong></div>
-            <div class="option-item"><span>Fundamentals of Business Studies</span><strong>R2,770.00</strong></div>
-            <div class="option-item"><span>Management</span><strong>R2,770.00</strong></div>
+            <div class="option-item"><span>Entrepreneurship</span><strong>~R6,540</strong></div>
+            <div class="option-item"><span>Fundamentals of Business Communication</span><strong>~R6,540</strong></div>
+            <div class="option-item"><span>Fundamentals of Business Studies</span><strong>~R6,540</strong></div>
+            <div class="option-item"><span>Management</span><strong>~R6,540</strong></div>
+            <div class="option-item"><span>Project Management 1</span><strong>~R6,540</strong></div>
           </div>
         </div>
       </section>
@@ -35,10 +41,9 @@
         <button class="acc-btn" type="button" data-acc="opt1-elective-panel">Elective Modules <span>▾</span></button>
         <div class="acc-panel" id="opt1-elective-panel">
           <div class="option-list" id="opt1-electives">
-            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Accountancy</label><strong>R2,770.00</strong></div>
-            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Cybersecurity Management</label><strong>R2,770.00</strong></div>
-            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Marketing Management</label><strong>R2,770.00</strong></div>
-            <div class="option-item"><label><input type="checkbox" data-price="2770" /> Project Management</label><strong>R2,770.00</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="6550" /> Introduction to Business Law</label><strong>~R6,550</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="6550" /> Logistics Management 1</label><strong>~R6,550</strong></div>
+            <div class="option-item"><label><input type="checkbox" data-price="6550" /> Marketing Management</label><strong>~R6,550</strong></div>
           </div>
         </div>
       </section>
@@ -54,67 +59,37 @@
       </section>
     </section>
 
-    <section class="registration-card" id="opt1-registration-card">
-      <div class="registration-title">Registration Fee</div>
-      <div class="registration-options">
-        <label><input type="radio" name="opt1-registration" value="2080" checked /> First-time registration</label>
-        <label><input type="radio" name="opt1-registration" value="1090" /> Subsequent registration</label>
+    <section class="registration-card opt1-registration" id="opt1-registration-card">
+      <div class="registration-header-row">
+        <div class="registration-title">Registration Fee</div>
+        <div class="registration-header-amount" id="opt1-registration-value">R2,080.00</div>
       </div>
-      <div class="registration-selected">Selected registration fee: <span id="opt1-registration-value">R2,080.00</span></div>
+      <div class="registration-options">
+        <label><input type="radio" name="opt1-registration" value="2080" checked /> First-time registration fee</label>
+        <label><input type="radio" name="opt1-registration" value="2080" /> Subsequent registration fee</label>
+      </div>
     </section>
 
-    <section class="prototype">
-      <div class="controls">
-        <div class="control">
-          <label for="opt1-term">Repayment term</label>
-          <select id="opt1-term">
-            <option value="6">6 months</option>
-            <option value="8">8 months</option>
-            <option value="10" selected>10 months</option>
-            <option value="12">12 months</option>
-          </select>
-        </div>
-        <div class="control">
-          <label for="opt1-mpm">Modules per month</label>
-          <select id="opt1-mpm">
-            <option value="1" selected>1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </div>
-        <div class="control">
-          <label for="opt1-mps">Modules per semester</label>
-          <select id="opt1-mps">
-            <option value="2">2</option>
-            <option value="3" selected>3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-          </select>
-        </div>
-      </div>
-
+    <section class="prototype opt1-pricing">
       <div class="split">
         <article class="col">
-          <h3>Upfront Payment (Fixed 8% Discount)</h3>
-          <div class="value-row"><span>Full price</span><strong id="opt1-full-price">R0.00</strong></div>
-          <div class="value-row"><span>Discount (8%)</span><strong id="opt1-discount-value">-R0.00</strong></div>
-          <div class="highlight label-row"><span>Discounted upfront</span><span id="opt1-upfront-price">R0.00</span></div>
-          <div class="label-row"><span>You save</span><strong id="opt1-save-value">R0.00</strong></div>
+          <h3>Upfront Payment</h3>
+          <div class="highlight">Full year upfront tuition fee: R39,260 (8% discount applied)</div>
+          <div class="value-row"><span>Full price upfront</span><strong id="opt1-full-price">R42,680.00</strong></div>
+          <div class="value-row"><span>Discount (8%)</span><strong id="opt1-discount-value">-R3,420.00</strong></div>
+          <div class="value-row"><span>You save</span><strong id="opt1-save-value">R3,420.00</strong></div>
         </article>
 
         <article class="col">
           <h3>Month-to-Month Payment</h3>
-          <div class="value-row"><span>Deposit due now</span><strong id="opt1-deposit">R0.00</strong></div>
-          <div class="value-row"><span>Monthly x <span id="opt1-term-text">10</span></span><strong id="opt1-monthly">R0.00</strong></div>
-          <div class="small">Monthly amount updates based on selected study load and repayment term.</div>
+          <div class="value-row"><span>Deposit amount</span><strong id="opt1-deposit">R4,000.00</strong></div>
+          <div class="value-row"><span>Monthly x 10 payments</span><strong id="opt1-monthly">R3,868.00</strong></div>
           <div class="schedule-list" id="opt1-schedule"></div>
+          <div class="highlight label-row">
+            <span>Total cost for month-to-month payment</span>
+            <strong id="opt1-monthly-total">R42,680.00</strong>
+          </div>
         </article>
-      </div>
-
-      <div class="footer-total">
-        <span>Total Estimated Cost</span>
-        <span id="opt1-core-total">R0.00</span>
       </div>
     </section>
   </main>
