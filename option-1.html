@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Option 1 | Fixed Discount View</title>
+  <title>Option 1 | Comparison Payment View</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -19,13 +19,16 @@
   <main class="shell page-main">
 
     <section class="option1-heading-strip">
-      <h1>Discounts for upfront payments</h1>
+      <h1>Comparison Payment View</h1>
       <p class="option1-course-note">This example is based on the Contact Learning Higher Certificate in Management course.</p>
     </section>
 
     <section class="prototype opt1-edge">
       <section class="accordion">
-        <button class="acc-btn" type="button" data-acc="opt1-compulsory-panel">Compulsory Modules <span>▾</span></button>
+        <button class="acc-btn" type="button" data-acc="opt1-compulsory-panel">
+          <span>Compulsory Modules</span>
+          <span class="acc-meta"><strong id="opt1-compulsory-total">R32,700.00</strong><span>▾</span></span>
+        </button>
         <div class="acc-panel" id="opt1-compulsory-panel">
           <div class="option-list">
             <div class="option-item"><span>Entrepreneurship</span><strong>~R6,540</strong></div>
@@ -38,7 +41,10 @@
       </section>
 
       <section class="accordion">
-        <button class="acc-btn" type="button" data-acc="opt1-elective-panel">Elective Modules <span>▾</span></button>
+        <button class="acc-btn" type="button" data-acc="opt1-elective-panel">
+          <span>Elective Modules</span>
+          <span class="acc-meta"><strong id="opt1-elective-total">R0.00</strong><span>▾</span></span>
+        </button>
         <div class="acc-panel" id="opt1-elective-panel">
           <div class="option-list" id="opt1-electives">
             <div class="option-item"><label><input type="checkbox" data-price="6550" /> Introduction to Business Law</label><strong>~R6,550</strong></div>
@@ -49,7 +55,10 @@
       </section>
 
       <section class="accordion">
-        <button class="acc-btn" type="button" data-acc="opt1-fee-panel">Ancillary Fees <span>▾</span></button>
+        <button class="acc-btn" type="button" data-acc="opt1-fee-panel">
+          <span>Ancillary Fees</span>
+          <span class="acc-meta"><strong id="opt1-fee-total">R0.00</strong><span>▾</span></span>
+        </button>
         <div class="acc-panel" id="opt1-fee-panel">
           <div class="option-list" id="opt1-fees">
             <div class="option-item"><label><input type="checkbox" data-price="900" /> Credit Accumulation and Transfer</label><strong>R900.00</strong></div>
@@ -57,47 +66,42 @@
           </div>
         </div>
       </section>
-    </section>
 
-    <section class="registration-card opt1-registration" id="opt1-registration-card">
-      <div class="registration-header-row">
-        <div class="registration-title">Registration Fee</div>
-        <div class="registration-header-amount" id="opt1-registration-value">R2,080.00</div>
-      </div>
-      <div class="registration-options">
-        <label><input type="radio" name="opt1-registration" value="2080" checked /> First-time registration fee</label>
-        <label><input type="radio" name="opt1-registration" value="1080" /> Subsequent registration fee</label>
-      </div>
+      <section class="accordion">
+        <button class="acc-btn" type="button" data-acc="opt1-registration-panel">
+          <span>Registration Fee</span>
+          <span class="acc-meta"><strong id="opt1-registration-value">R2,080.00</strong><span>▾</span></span>
+        </button>
+        <div class="acc-panel" id="opt1-registration-panel">
+          <div class="registration-options opt1-registration-options">
+            <label><input type="radio" name="opt1-registration" value="2080" checked /> First-time registration fee</label>
+            <label><input type="radio" name="opt1-registration" value="1080" /> Subsequent registration fee</label>
+          </div>
+        </div>
+      </section>
     </section>
 
     <section class="prototype opt1-pricing">
       <div class="split edge-cards">
         <article class="col">
           <h3>Upfront Payment</h3>
-          <div class="highlight">Full year upfront tuition fee: R39,260 (8% discount applied)</div>
-          <div class="value-row"><span>Full price upfront</span><strong id="opt1-full-price">R42,680.00</strong></div>
-          <div class="value-row"><span>Discount (8%)</span><strong id="opt1-discount-value">-R3,420.00</strong></div>
-          <div class="value-row"><span>You save</span><strong id="opt1-save-value">R3,420.00</strong></div>
+          <div class="value-row"><span>You save 8% discount</span><strong id="opt1-save-value">R4,000.00</strong></div>
+          <div class="highlight label-row opt1-total-row">
+            <span>Total upfront payment</span>
+            <strong id="opt1-full-price" class="opt1-total-amount">R39,260.00</strong>
+          </div>
         </article>
 
         <article class="col">
           <h3>Month-to-Month Payment</h3>
-          <div class="value-row"><span>Deposit amount</span><strong id="opt1-deposit">R4,000.00</strong></div>
-          <div class="value-row"><span>Monthly x 10 payments</span><strong id="opt1-monthly">R3,868.00</strong></div>
+          <div class="value-row"><span>Deposit amount</span><span id="opt1-deposit" class="opt1-regular-amount">R4,000.00</span></div>
+          <div class="value-row"><span>Monthly x 10 payments</span><span id="opt1-monthly" class="opt1-regular-amount">R3,868.00</span></div>
           <div class="schedule-list" id="opt1-schedule"></div>
-          <div class="highlight label-row">
+          <div class="highlight label-row opt1-total-row">
             <span>Total cost for month-to-month payment</span>
-            <strong id="opt1-monthly-total">R42,680.00</strong>
+            <strong id="opt1-monthly-total" class="opt1-total-amount">R42,680.00</strong>
           </div>
         </article>
-      </div>
-    </section>
-
-    <section class="funding-banner">
-      <p>Explore additional funding options, including student loans and financial assistance.</p>
-      <div class="funding-actions">
-        <a class="btn" href="https://stadio.ac.za/student-funding" target="_blank" rel="noopener noreferrer">Explore Funding Options</a>
-        <a class="btn" href="https://stadio.ac.za/contact-us" target="_blank" rel="noopener noreferrer">Contact Us</a>
       </div>
     </section>
   </main>

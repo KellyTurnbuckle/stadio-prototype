@@ -165,6 +165,12 @@ button.btn {
 
 .landing-main .cards {
   padding-top: 8px;
+  flex-wrap: nowrap;
+}
+
+.landing-main .card {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .page-head {
@@ -195,6 +201,30 @@ button.btn {
 
 .option2-head .option1-course-note {
   margin-bottom: 18px;
+}
+
+.opt2-page .prototype {
+  padding: 15px;
+}
+
+.opt2-page .acc-btn {
+  padding: 0 15px;
+}
+
+.opt2-page .acc-panel {
+  padding: 15px;
+}
+
+.opt2-page .option-item {
+  padding: 15px;
+}
+
+.opt2-page .col {
+  padding: 15px;
+}
+
+.opt2-page .row {
+  padding: 15px;
 }
 
 .option3-head {
@@ -257,6 +287,17 @@ button.btn {
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+}
+
+.acc-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.acc-meta strong {
+  font-size: 0.96rem;
+  color: #565759;
 }
 
 .acc-panel {
@@ -399,6 +440,11 @@ select {
   padding-bottom: 0;
 }
 
+.opt2-page .prototype.opt2-payment-wrap {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .prototype.opt3-payment-block {
   padding: 0;
   gap: 0;
@@ -411,6 +457,10 @@ select {
 
 #opt3-core-root {
   margin-bottom: 18px;
+}
+
+.opt3-results {
+  margin-top: 18px;
 }
 
 #opt3-focus-summary {
@@ -565,8 +615,8 @@ select {
   gap: 10px;
 }
 
-.opt3-results #tab-monthly .row,
-#opt4-monthly-view-wrap .row {
+.opt3-results #tab-upfront .row,
+.opt3-results #tab-monthly .row {
   border: 0;
 }
 
@@ -641,6 +691,124 @@ select {
 .opt1-pricing .split.edge-cards {
   margin-left: 0;
   margin-right: 0;
+}
+
+.opt1-registration-options {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.opt1-registration-options label {
+  font-weight: 400;
+}
+
+.opt1-total-row {
+  margin-top: auto;
+}
+
+.opt1-total-amount {
+  font-size: 1.65rem;
+  line-height: 1.1;
+}
+
+.opt1-regular-amount {
+  font-weight: 400;
+  color: #565759;
+}
+
+.opt1-pricing .schedule-item strong {
+  font-weight: 400;
+}
+
+.section-divider {
+  border-top: 1px solid var(--line);
+}
+
+.opt2-plan-total-row {
+  margin-top: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.semester-divider {
+  border: 0;
+  padding: 8px 0;
+  margin: 8px 0;
+  color: #565759;
+  font-weight: 700;
+}
+
+.opt2-links-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.opt2-plan-link-row {
+  margin-top: 8px;
+}
+
+.opt2-focus-control {
+  margin-top: 8px;
+}
+
+.opt2-registration-options {
+  gap: 18px;
+}
+
+.opt2-page .option-item.opt2-focus-row {
+  border: 0;
+  background: transparent;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.opt2-focus-row span {
+  color: #565759;
+  font-weight: 700;
+}
+
+.opt2-focus-row select {
+  min-width: 230px;
+  min-height: 34px;
+}
+
+.opt3-focus-row {
+  border: 0;
+  background: transparent;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.opt3-focus-row span {
+  color: #565759;
+  font-weight: 700;
+}
+
+.opt3-focus-row select {
+  min-width: 230px;
+  min-height: 34px;
+}
+
+.opt3-registration-options {
+  gap: 18px;
+}
+
+#opt2-breakdown-list {
+  border-top: 0;
+  padding-top: 8px;
 }
 
 .option1-inline-controls {
