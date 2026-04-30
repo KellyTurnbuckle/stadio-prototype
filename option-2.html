@@ -25,7 +25,10 @@
 
     <section class="prototype edge-accordions" id="opt2-core-root">
       <section class="accordion">
-        <button class="acc-btn" type="button" data-acc="opt2-compulsory-panel" data-acc-group="opt2">Compulsory Modules <span>▾</span></button>
+        <button class="acc-btn" type="button" data-acc="opt2-compulsory-panel" data-acc-group="opt2">
+          <span>Compulsory Modules</span>
+          <span class="acc-meta"><strong id="opt2-compulsory-total">R11,080.00</strong><span>▾</span></span>
+        </button>
         <div class="acc-panel" id="opt2-compulsory-panel">
           <div class="option-list">
             <div class="option-item"><span>Entrepreneurship</span><strong>R2,770.00</strong></div>
@@ -56,7 +59,10 @@
       <div class="section-divider"></div>
 
       <section class="accordion">
-        <button class="acc-btn" type="button" data-acc="opt2-fee-panel" data-acc-group="opt2">Ancillary Fees <span>▾</span></button>
+        <button class="acc-btn" type="button" data-acc="opt2-fee-panel" data-acc-group="opt2">
+          <span>Ancillary Fees</span>
+          <span class="acc-meta"><strong id="opt2-fee-total">R0.00</strong><span>▾</span></span>
+        </button>
         <div class="acc-panel" id="opt2-fee-panel">
           <div class="option-list" id="opt2-fees">
             <div class="option-item"><label><input type="checkbox" data-price="900" /> Credit Accumulation and Transfer</label><strong>R900.00</strong></div>
@@ -94,10 +100,10 @@
           <div class="big" id="opt2-monthly">R0.00</div>
           <div class="value-row opt2-plan-link-row">
             <button class="inline-action" type="button" id="opt2-breakdown-toggle" aria-expanded="false">Payment Plan</button>
-            <span class="duration-plain" id="opt2-duration-text">8 months (4 per semester)</span>
+            <span class="duration-plain" id="opt2-duration-text">8 payments (4 per semester)</span>
           </div>
           <div class="schedule-list hidden" id="opt2-breakdown-list"></div>
-          <div class="value-row opt2-plan-total-row"><span>Plan total</span><strong id="opt2-plan-total">R0.00</strong></div>
+          <div class="value-row opt2-plan-total-row hidden" id="opt2-plan-total-row"><span>Plan total</span><strong id="opt2-plan-total">R0.00</strong></div>
         </article>
       </div>
     </section>

@@ -210,6 +210,8 @@
     };
 
     var feeWrap = document.getElementById("opt2-fees");
+    var compulsoryTotalOut = document.getElementById("opt2-compulsory-total");
+    var feeTotalOut = document.getElementById("opt2-fee-total");
     var focusSelect = document.getElementById("opt2-focus-select");
     var focusDisplay = document.getElementById("opt2-focus-display");
     var electiveOne = document.getElementById("opt2-elective-1-name");
@@ -237,10 +239,12 @@
       var planTotal = COMPULSORY_TOTAL + ELECTIVE_TOTAL + feeTotal + registrationFee;
       var monthly = planTotal / PAYMENT_COUNT;
 
+      if (compulsoryTotalOut) compulsoryTotalOut.textContent = money(COMPULSORY_TOTAL);
+      if (feeTotalOut) feeTotalOut.textContent = money(feeTotal);
       if (regValue) regValue.textContent = money(registrationFee);
       if (upfrontOut) upfrontOut.textContent = money(planTotal);
       if (monthlyOut) monthlyOut.textContent = money(monthly);
-      if (durationOut) durationOut.textContent = "8 months (4 per semester)";
+      if (durationOut) durationOut.textContent = "8 payments (4 per semester)";
       if (planOut) planOut.textContent = money(planTotal);
 
       if (breakdownList) {
@@ -269,11 +273,13 @@
   (function initOpt2Breakdown() {
     var toggle = document.getElementById("opt2-breakdown-toggle");
     var list = document.getElementById("opt2-breakdown-list");
+    var totalRow = document.getElementById("opt2-plan-total-row");
     if (toggle && list) {
       toggle.textContent = "Payment Plan";
       toggle.addEventListener("click", function () {
         var isOpen = !list.classList.contains("hidden");
         list.classList.toggle("hidden", isOpen);
+        if (totalRow) totalRow.classList.toggle("hidden", isOpen);
         toggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
         toggle.textContent = "Payment Plan";
       });
@@ -330,9 +336,14 @@
 
       if (monthlyBreakdown) {
         var rows = [];
-        for (var i = 0; i < PAYMENT_COUNT; i += 1) {
-          rows.push("<div class='schedule-item'><span>" + monthDateLabel(i) + "</span><strong>" + money(monthly) + "</strong></div>");
-        }
+        rows.push("<div class='semester-divider'>Semester 1</div>");
+        ["February", "March", "April", "May"].forEach(function (m1) {
+          rows.push("<div class='schedule-item'><span>" + m1 + "</span><strong>" + money(monthly) + "</strong></div>");
+        });
+        rows.push("<div class='semester-divider'>Semester 2</div>");
+        ["June", "July", "August", "September"].forEach(function (m2) {
+          rows.push("<div class='schedule-item'><span>" + m2 + "</span><strong>" + money(monthly) + "</strong></div>");
+        });
         monthlyBreakdown.innerHTML = rows.join("");
       }
     };
