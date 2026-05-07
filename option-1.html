@@ -67,27 +67,15 @@
         </div>
       </section>
 
-      <section class="accordion">
-        <button class="acc-btn" type="button" data-acc="opt1-registration-panel" data-acc-group="opt1">
-          <span>Registration Fee</span>
-          <span class="acc-meta"><strong id="opt1-registration-value">R2,080.00</strong><span>▾</span></span>
-        </button>
-        <div class="acc-panel" id="opt1-registration-panel">
-          <div class="registration-options opt1-registration-options">
-            <label><input type="radio" name="opt1-registration" value="2080" checked /> First-time registration fee</label>
-            <label><input type="radio" name="opt1-registration" value="1080" /> Subsequent registration fee</label>
-          </div>
-        </div>
-      </section>
     </section>
 
     <section class="prototype opt1-pricing">
       <div class="split edge-cards">
         <article class="col">
           <h3>Upfront Payment</h3>
-          <div class="value-row"><span>You save 8% discount</span><strong id="opt1-save-value">R4,000.00</strong></div>
+          <div class="value-row opt1-savings-row"><span>You save 8% discount</span><strong id="opt1-save-value">R4,000.00</strong></div>
           <div class="highlight label-row opt1-total-row">
-            <span>Total upfront payment</span>
+            <span>Total</span>
             <strong id="opt1-full-price" class="opt1-total-amount">R39,260.00</strong>
           </div>
         </article>
@@ -98,10 +86,17 @@
           <div class="value-row"><span>Monthly x 10 payments</span><span id="opt1-monthly" class="opt1-regular-amount">R3,868.00</span></div>
           <div class="schedule-list" id="opt1-schedule"></div>
           <div class="highlight label-row opt1-total-row">
-            <span>Total cost for month-to-month payment</span>
+            <span>Total</span>
             <strong id="opt1-monthly-total" class="opt1-total-amount">R42,680.00</strong>
           </div>
         </article>
+      </div>
+    </section>
+
+    <section class="prototype registration-separate-card" id="opt1-registration-card">
+      <div class="registration-line">
+        <span>Once-off registration fee</span>
+        <strong>R2,080.00</strong>
       </div>
     </section>
   </main>

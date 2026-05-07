@@ -156,9 +156,7 @@
     var render = function () {
       var electiveTotal = sumChecked(electiveWrap);
       var feeTotal = sumChecked(feeWrap);
-      var selectedReg = document.querySelector("input[name='opt1-registration']:checked");
-      var registrationFee = Number(selectedReg ? selectedReg.value : 2080);
-      var total = baseTotal + electiveTotal + feeTotal + (registrationFee - baseRegistration);
+      var total = baseTotal + electiveTotal + feeTotal;
       var discountValue = 4000;
       var upfrontTotal = total - discountValue;
       var monthly = (total - deposit) / paymentCount;
@@ -166,7 +164,6 @@
       if (compulsoryTotalOut) compulsoryTotalOut.textContent = money(compulsoryTotal);
       if (electiveTotalOut) electiveTotalOut.textContent = money(electiveTotal);
       if (feeTotalOut) feeTotalOut.textContent = money(feeTotal);
-      if (regValue) regValue.textContent = money(registrationFee);
       if (fullOut) fullOut.textContent = money(upfrontTotal);
       if (saveOut) saveOut.textContent = money(discountValue);
       if (depositOut) depositOut.textContent = money(deposit);
@@ -182,9 +179,6 @@
 
     if (electiveWrap) electiveWrap.addEventListener("change", render);
     if (feeWrap) feeWrap.addEventListener("change", render);
-    document.querySelectorAll("input[name='opt1-registration']").forEach(function (el) {
-      el.addEventListener("change", render);
-    });
     render();
   })();
 
@@ -234,29 +228,23 @@
       }
 
       var feeTotal = sumChecked(feeWrap);
-      var selectedReg = document.querySelector("input[name='opt2-registration']:checked");
-      var registrationFee = Number(selectedReg ? selectedReg.value : 2080);
-      var planTotal = COMPULSORY_TOTAL + ELECTIVE_TOTAL + feeTotal + registrationFee;
+      var planTotal = COMPULSORY_TOTAL + ELECTIVE_TOTAL + feeTotal;
       var monthly = planTotal / PAYMENT_COUNT;
+      var semesterOneTotal = monthly * 4;
 
       if (compulsoryTotalOut) compulsoryTotalOut.textContent = money(COMPULSORY_TOTAL);
       if (feeTotalOut) feeTotalOut.textContent = money(feeTotal);
-      if (regValue) regValue.textContent = money(registrationFee);
       if (upfrontOut) upfrontOut.textContent = money(planTotal);
       if (monthlyOut) monthlyOut.textContent = money(monthly);
       if (durationOut) durationOut.textContent = "8 payments (4 per semester)";
-      if (planOut) planOut.textContent = money(planTotal);
+      if (planOut) planOut.textContent = money(semesterOneTotal);
 
       if (breakdownList) {
         var rows = [];
-        rows.push("<div class='semester-divider'>Semester 1 (Feb - May)</div>");
+        rows.push("<div class='semester-divider'>Total</div>");
         var months = ["1 February 2026", "1 March 2026", "1 April 2026", "1 May 2026"];
         months.forEach(function (m) {
           rows.push("<div class='schedule-item'><span>" + m + "</span><strong>" + money(monthly) + "</strong></div>");
-        });
-        rows.push("<div class='semester-divider'>Semester 2 (August - November)</div>");
-        ["1 August 2026", "1 September 2026", "1 October 2026", "1 November 2026"].forEach(function (m2) {
-          rows.push("<div class='schedule-item'><span>" + m2 + "</span><strong>" + money(monthly) + "</strong></div>");
         });
         breakdownList.innerHTML = rows.join("");
       }
@@ -264,9 +252,6 @@
 
     if (feeWrap) feeWrap.addEventListener("change", render);
     if (focusSelect) focusSelect.addEventListener("change", render);
-    document.querySelectorAll("input[name='opt2-registration']").forEach(function (el) {
-      el.addEventListener("change", render);
-    });
     render();
   })();
 
@@ -324,37 +309,44 @@
       if (focusDisplay) focusDisplay.textContent = "Selected Focus Area";
 
       var feeTotal = sumChecked(fees);
-      var selectedReg = document.querySelector("input[name='opt3-registration']:checked");
-      var registrationFee = Number(selectedReg ? selectedReg.value : 2080);
       var electiveTotal = FIXED_ELECTIVE_TOTAL;
-      var total = COMPULSORY_TOTAL_OPT3 + electiveTotal + feeTotal + registrationFee;
-      var monthly = total / PAYMENT_COUNT;
+      var total = COMPULSORY_TOTAL_OPT3 + electiveTotal + feeTotal;
+      var monthly = 2307.37;
 
-      if (regValue) regValue.textContent = money(registrationFee);
       if (upfrontOut) upfrontOut.textContent = money(total);
       if (monthlyOut) monthlyOut.textContent = money(monthly);
 
       if (monthlyBreakdown) {
         var rows = [];
         rows.push("<div class='semester-divider'>Semester 1</div>");
-        ["February", "March", "April", "May"].forEach(function (m1) {
+        ["1 February 2026", "1 March 2026", "1 April 2026", "1 May 2026"].forEach(function (m1) {
           rows.push("<div class='schedule-item'><span>" + m1 + "</span><strong>" + money(monthly) + "</strong></div>");
         });
-        rows.push("<div class='semester-divider'>Semester 2</div>");
-        ["June", "July", "August", "September"].forEach(function (m2) {
-          rows.push("<div class='schedule-item'><span>" + m2 + "</span><strong>" + money(monthly) + "</strong></div>");
-        });
+        rows.push("<div class='schedule-item opt3-semester-total'><span>Total</span><strong>" + money(monthly * 4) + "</strong></div>");
         monthlyBreakdown.innerHTML = rows.join("");
       }
     };
 
     if (fees) fees.addEventListener("change", render);
     if (focusSelect) focusSelect.addEventListener("change", render);
-    document.querySelectorAll("input[name='opt3-registration']").forEach(function (el) {
-      el.addEventListener("change", render);
-    });
 
     render();
+  })();
+
+  (function initOpt3Breakdown() {
+    var toggle = document.getElementById("opt3-breakdown-toggle");
+    var list = document.getElementById("opt3-monthly-breakdown");
+    var divider = document.getElementById("opt3-breakdown-divider");
+    if (toggle && list) {
+      toggle.textContent = "View payment plan";
+      toggle.addEventListener("click", function () {
+        var isOpen = !list.classList.contains("hidden");
+        list.classList.toggle("hidden", isOpen);
+        if (divider) divider.classList.toggle("hidden", isOpen);
+        toggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
+        toggle.textContent = isOpen ? "View payment plan" : "Hide payment plan";
+      });
+    }
   })();
 
 })();

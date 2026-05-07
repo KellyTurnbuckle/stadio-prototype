@@ -1,5 +1,5 @@
 :root {
-  --ink: #20232a;
+  --ink: #565759;
   --muted: #6a7280;
   --line: #d9dee7;
   --panel: #ffffff;
@@ -721,6 +721,17 @@ select {
   font-weight: 400;
 }
 
+.opt1-savings-row {
+  background: #f6f8fc;
+  border-left: 4px solid #565759;
+  padding: 8px 10px;
+}
+
+.opt1-savings-row strong {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
 .section-divider {
   border-top: 1px solid var(--line);
 }
@@ -756,6 +767,26 @@ select {
 
 .opt2-registration-options {
   gap: 18px;
+}
+
+.registration-separate-card {
+  margin-top: 18px;
+}
+
+.registration-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #565759;
+}
+
+.registration-line span {
+  font-weight: 500;
+}
+
+.registration-line strong {
+  font-size: 1.06rem;
 }
 
 .opt2-page .option-item.opt2-focus-row {
@@ -804,6 +835,29 @@ select {
 
 .opt3-registration-options {
   gap: 18px;
+}
+
+.opt3-breakdown-divider {
+  border-top: 1px solid var(--line);
+  margin: 14px 0 12px;
+  padding: 6px 0;
+}
+
+.opt3-monthly-row {
+  padding-left: 6px;
+}
+
+#opt3-monthly-breakdown {
+  border-top: 0;
+  padding-top: 0;
+  gap: 8px;
+}
+
+.opt3-semester-total {
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+  padding-top: 10px;
+  font-weight: 700;
 }
 
 #opt2-breakdown-list {
