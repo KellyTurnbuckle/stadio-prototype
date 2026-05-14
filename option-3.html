@@ -30,9 +30,18 @@
       </div>
     </section>
 
+    <section class="opt3-unified-card">
     <section class="prototype edge-accordions" id="opt3-core-root">
       <section class="accordion">
-        <button class="acc-btn" type="button" data-acc="opt3-compulsory-panel" data-acc-group="opt3">Compulsory Modules <span>▾</span></button>
+        <button class="acc-btn" type="button" data-acc="opt3-compulsory-panel" data-acc-group="opt3">
+          <span class="opt3-acc-heading">
+            <span>Compulsory Modules</span>
+            <span id="opt3-focus-collapsed-copy" class="opt3-focus-collapsed-copy">Choose a focus area to personalise your course estimate.</span>
+          </span>
+          <span class="acc-meta">
+            <span>▾</span>
+          </span>
+        </button>
         <div class="acc-panel" id="opt3-compulsory-panel">
           <div class="option-list">
             <div class="option-item"><span>Entrepreneurship</span><strong>R2,770.00</strong></div>
@@ -40,7 +49,7 @@
             <div class="option-item"><span>Fundamentals of Business Study</span><strong>R2,770.00</strong></div>
             <div class="option-item"><span>Management</span><strong>R2,770.00</strong></div>
             <div class="option-item opt3-focus-row">
-              <span id="opt3-focus-display">Selected Focus Area</span>
+              <span id="opt3-focus-display">Select focus area</span>
               <select id="opt3-focus-select">
                 <option value="">Select focus area</option>
                 <option value="accountancy">Accountancy</option>
@@ -60,16 +69,26 @@
         </div>
       </section>
 
-      <section class="accordion">
-        <button class="acc-btn" type="button" data-acc="opt3-fee-panel" data-acc-group="opt3">Ancillary Fees <span>▾</span></button>
-        <div class="acc-panel" id="opt3-fee-panel">
-          <div class="option-list" id="opt3-fees">
-            <div class="option-item"><label><input type="checkbox" data-price="900" /> Credit Accumulation and Transfer</label><strong>R900.00</strong></div>
-            <div class="option-item"><label><input type="checkbox" data-price="1040" /> Recognition of Prior Learning</label><strong>R1,040.00</strong></div>
-          </div>
-        </div>
-      </section>
+    </section>
 
+    <section class="prototype opt3-ancillary-banner">
+      <h3>Have you studied before or gained industry experience? You may qualify for a module exemption.</h3>
+      <p>Our team can review your previous studies or experience to provide a more accurate fee estimate. <a class="opt3-ancillary-link" href="#">Find out more</a></p>
+    </section>
+
+    <section class="prototype registration-separate-card opt3-registration-minimal" id="opt3-registration-card">
+      <div class="registration-line">
+        <span>First-time registration fee and onboarding</span>
+        <strong>R2,080.00</strong>
+      </div>
+      <div class="opt3-registration-divider"></div>
+      <div class="opt3-registration-toggle" id="opt3-breakdown-options">
+        <p>Would you like to add your registration fee to your monthly payments?</p>
+        <div class="opt3-inline-radios">
+          <label><input type="radio" name="opt3-add-registration" value="no" checked /> No</label>
+          <label><input type="radio" name="opt3-add-registration" value="yes" /> Yes</label>
+        </div>
+      </div>
     </section>
 
     <section class="prototype opt3-results">
@@ -86,22 +105,25 @@
       <div id="tab-monthly" class="tab-panel">
         <div class="row opt3-monthly-row">
           <div>
-            <strong>Monthly Instalment</strong>
-            <p class="small">Total of 4 payments per semester</p>
+            <strong>Monthly Installments</strong>
+            <p class="small">8 payments (4 per semester)</p>
           </div>
-          <div class="big" id="opt3-monthly-amount">R2,307.37</div>
+          <div class="opt3-monthly-right">
+            <div class="big" id="opt3-monthly-amount">R2,307.37</div>
+            <button class="inline-action" type="button" id="opt3-breakdown-toggle" aria-expanded="false">View payment plan</button>
+          </div>
         </div>
-        <button class="inline-action" type="button" id="opt3-breakdown-toggle" aria-expanded="false">View payment plan</button>
-        <div class="opt3-breakdown-divider hidden" id="opt3-breakdown-divider"></div>
+        <div class="opt3-study-start hidden" id="opt3-study-start">
+          <p>When would you like to start studying?</p>
+          <input type="hidden" id="opt3-study-start-value" value="sem2-2026" />
+          <div class="opt3-start-toggle" id="opt3-start-toggle">
+            <button type="button" class="opt3-start-btn active" data-start="sem2-2026">Semester 2-2026</button>
+            <button type="button" class="opt3-start-btn" data-start="sem1-2027">Semester 1-2027</button>
+          </div>
+        </div>
         <div class="schedule-list hidden" id="opt3-monthly-breakdown"></div>
       </div>
     </section>
-
-    <section class="prototype registration-separate-card" id="opt3-registration-card">
-      <div class="registration-line">
-        <span>Once-off registration fee</span>
-        <strong>R2,080.00</strong>
-      </div>
     </section>
 
   </main>

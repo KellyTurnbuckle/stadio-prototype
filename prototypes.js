@@ -241,8 +241,8 @@
 
       if (breakdownList) {
         var rows = [];
-        rows.push("<div class='semester-divider'>Total</div>");
-        var months = ["1 February 2026", "1 March 2026", "1 April 2026", "1 May 2026"];
+        rows.push("<div class='semester-divider'>Semester 2</div>");
+        var months = ["1 August 2026", "1 September 2026", "1 October 2026", "1 November 2026"];
         months.forEach(function (m) {
           rows.push("<div class='schedule-item'><span>" + m + "</span><strong>" + money(monthly) + "</strong></div>");
         });
@@ -260,13 +260,13 @@
     var list = document.getElementById("opt2-breakdown-list");
     var totalRow = document.getElementById("opt2-plan-total-row");
     if (toggle && list) {
-      toggle.textContent = "Payment Plan";
+      toggle.textContent = "View payment plan";
       toggle.addEventListener("click", function () {
         var isOpen = !list.classList.contains("hidden");
         list.classList.toggle("hidden", isOpen);
         if (totalRow) totalRow.classList.toggle("hidden", isOpen);
         toggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
-        toggle.textContent = "Payment Plan";
+        toggle.textContent = isOpen ? "View payment plan" : "Hide payment plan";
       });
     }
   })();
@@ -278,7 +278,7 @@
 
     var COMPULSORY_TOTAL_OPT3 = 4 * 2770;
     var FIXED_ELECTIVE_TOTAL = 2 * 2770;
-    var PAYMENT_COUNT = 8;
+    var SEMESTER_BASE_TOTAL = 8310;
     var focusModules = {
       accountancy: ["Accountancy for Managers 1", "Income Tax 1"],
       "aviation-management": ["Aviation Operations 1", "Aviation Safety Management 1"],
@@ -291,8 +291,10 @@
       "human-resources-management": ["Human Resource Management 1", "Labour Relations 1"]
     };
 
-    var fees = document.getElementById("opt3-fees");
-    var regValue = document.getElementById("opt3-registration-value");
+    var focusCollapsedCopy = document.getElementById("opt3-focus-collapsed-copy");
+    var addRegistrationInputs = document.querySelectorAll("input[name='opt3-add-registration']");
+    var studyStartValue = document.getElementById("opt3-study-start-value");
+    var studyStartButtons = document.querySelectorAll(".opt3-start-btn");
     var focusSelect = document.getElementById("opt3-focus-select");
     var focusDisplay = document.getElementById("opt3-focus-display");
     var electiveOne = document.getElementById("opt3-elective-1-name");
@@ -306,29 +308,58 @@
       var mapped = focusModules[selectedFocus];
       if (electiveOne) electiveOne.textContent = mapped ? mapped[0] : "Elective 1";
       if (electiveTwo) electiveTwo.textContent = mapped ? mapped[1] : "Elective 2";
-      if (focusDisplay) focusDisplay.textContent = "Selected Focus Area";
+      if (focusDisplay) focusDisplay.textContent = "Select focus area";
+      if (focusCollapsedCopy) {
+        focusCollapsedCopy.textContent = selectedFocus
+          ? focusSelect.options[focusSelect.selectedIndex].text
+          : "Choose a focus area to personalise your course estimate.";
+      }
 
-      var feeTotal = sumChecked(fees);
+      var feeTotal = 0;
       var electiveTotal = FIXED_ELECTIVE_TOTAL;
       var total = COMPULSORY_TOTAL_OPT3 + electiveTotal + feeTotal;
-      var monthly = 2307.37;
+      var includeRegistration = document.querySelector("input[name='opt3-add-registration']:checked");
+      var addRegistration = includeRegistration && includeRegistration.value === "yes";
+      var selectedStart = studyStartValue ? studyStartValue.value : "sem2-2026";
+      var isSemester2 = selectedStart === "sem2-2026";
+      var semesterTotal = SEMESTER_BASE_TOTAL + feeTotal + (addRegistration ? 2080 : 0);
+      var monthly = semesterTotal / 4;
 
       if (upfrontOut) upfrontOut.textContent = money(total);
       if (monthlyOut) monthlyOut.textContent = money(monthly);
 
       if (monthlyBreakdown) {
         var rows = [];
-        rows.push("<div class='semester-divider'>Semester 1</div>");
-        ["1 February 2026", "1 March 2026", "1 April 2026", "1 May 2026"].forEach(function (m1) {
-          rows.push("<div class='schedule-item'><span>" + m1 + "</span><strong>" + money(monthly) + "</strong></div>");
+        rows.push("<div class='semester-divider'>" + (isSemester2 ? "Semester 2" : "Semester 1") + "</div>");
+        rows.push("<div class='small opt3-semester-note'>These fees are based on starting in 2026.</div>");
+        var months = isSemester2
+          ? ["1 August 2026", "1 September 2026", "1 October 2026", "1 November 2026"]
+          : ["1 February 2027", "1 March 2027", "1 April 2027", "1 May 2027"];
+        months.forEach(function (m1) {
+          rows.push("<div class='schedule-item'><span>" + m1 + "</span><strong class='opt3-schedule-amount'>" + money(monthly) + "</strong></div>");
         });
-        rows.push("<div class='schedule-item opt3-semester-total'><span>Total</span><strong>" + money(monthly * 4) + "</strong></div>");
+        rows.push("<div class='small opt3-full-plan-copy'>View full payment plan for the complete course.</div>");
+        rows.push("<div class='schedule-item opt3-semester-total'><span>Total</span><strong>" + money(semesterTotal) + "</strong></div>");
         monthlyBreakdown.innerHTML = rows.join("");
       }
     };
 
-    if (fees) fees.addEventListener("change", render);
     if (focusSelect) focusSelect.addEventListener("change", render);
+    addRegistrationInputs.forEach(function (el) {
+      el.addEventListener("change", render);
+    });
+    studyStartButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var start = btn.getAttribute("data-start");
+        if (studyStartValue) {
+          studyStartValue.value = start;
+        }
+        studyStartButtons.forEach(function (other) {
+          other.classList.toggle("active", other === btn);
+        });
+        render();
+      });
+    });
 
     render();
   })();
@@ -336,17 +367,45 @@
   (function initOpt3Breakdown() {
     var toggle = document.getElementById("opt3-breakdown-toggle");
     var list = document.getElementById("opt3-monthly-breakdown");
-    var divider = document.getElementById("opt3-breakdown-divider");
+    var studyStart = document.getElementById("opt3-study-start");
+    var registrationOptions = document.getElementById("opt3-breakdown-options");
+    var registrationDivider = document.querySelector("#opt3-registration-card .opt3-registration-divider");
+    var monthlyTab = document.getElementById("tab-monthly");
+    var upfrontTab = document.getElementById("tab-upfront");
+    var tabButtons = document.querySelectorAll(".opt3-payment-block [data-tab]");
+    var syncRegistrationVisibility = function () {
+      if (!registrationOptions) return;
+      var monthlyVisible = monthlyTab && !monthlyTab.classList.contains("hidden");
+      registrationOptions.classList.toggle("hidden", !monthlyVisible);
+      if (registrationDivider) registrationDivider.classList.toggle("hidden", !monthlyVisible);
+    };
     if (toggle && list) {
+      list.classList.add("hidden");
+      if (studyStart) studyStart.classList.add("hidden");
+      toggle.setAttribute("aria-expanded", "false");
       toggle.textContent = "View payment plan";
       toggle.addEventListener("click", function () {
         var isOpen = !list.classList.contains("hidden");
         list.classList.toggle("hidden", isOpen);
-        if (divider) divider.classList.toggle("hidden", isOpen);
+        if (studyStart) studyStart.classList.toggle("hidden", isOpen);
         toggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
         toggle.textContent = isOpen ? "View payment plan" : "Hide payment plan";
       });
     }
+    tabButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (upfrontTab && !upfrontTab.classList.contains("hidden")) {
+          if (list) list.classList.add("hidden");
+          if (studyStart) studyStart.classList.add("hidden");
+          if (toggle) {
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.textContent = "View payment plan";
+          }
+        }
+        syncRegistrationVisibility();
+      });
+    });
+    syncRegistrationVisibility();
   })();
 
 })();

@@ -436,13 +436,18 @@ select {
 }
 
 .prototype.opt2-payment-wrap {
-  padding-top: 0;
-  padding-bottom: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
 }
 
 .opt2-page .prototype.opt2-payment-wrap {
-  padding-top: 0;
-  padding-bottom: 0;
+  padding: 0;
+}
+
+.opt2-page .opt2-payment-wrap .split.edge-cards {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .prototype.opt3-payment-block {
@@ -456,7 +461,7 @@ select {
 }
 
 #opt3-core-root {
-  margin-bottom: 18px;
+  margin-bottom: 0;
 }
 
 .opt3-results {
@@ -525,7 +530,7 @@ select {
   border: 0;
   background: transparent;
   padding: 0;
-  color: var(--ink);
+  color: #565759;
   text-decoration: underline;
   font-weight: 700;
   cursor: pointer;
@@ -721,6 +726,12 @@ select {
   font-weight: 400;
 }
 
+#opt1-compulsory-panel .option-item strong,
+#opt1-elective-panel .option-item strong,
+#opt1-fee-panel .option-item strong {
+  font-weight: 400;
+}
+
 .opt1-savings-row {
   background: #f6f8fc;
   border-left: 4px solid #565759;
@@ -740,6 +751,18 @@ select {
   margin-top: 8px;
   border-top: 1px solid var(--line);
   padding-top: 10px;
+}
+
+#opt2-compulsory-panel .option-item strong {
+  font-weight: 400;
+}
+
+#opt2-breakdown-list .schedule-item strong {
+  font-weight: 400;
+}
+
+#opt2-breakdown-toggle {
+  font-weight: 400;
 }
 
 .semester-divider {
@@ -839,18 +862,81 @@ select {
 
 .opt3-breakdown-divider {
   border-top: 1px solid var(--line);
-  margin: 14px 0 12px;
-  padding: 6px 0;
+  margin: 6px 0 4px;
+  padding: 2px 0;
 }
 
 .opt3-monthly-row {
-  padding-left: 6px;
+  padding: 0;
+}
+
+.opt3-monthly-row strong {
+  color: #565759;
+}
+
+.opt3-monthly-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.opt3-registration-toggle {
+  background: transparent;
+  padding: 2px 0 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.opt3-registration-toggle.hidden {
+  display: none;
+}
+
+.opt3-registration-toggle p {
+  margin: 0;
+  color: #565759;
+  font-size: 14px;
+}
+
+.opt3-inline-radios {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.opt3-inline-radios label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.opt3-prior-study-row {
+  align-items: flex-start;
+}
+
+.opt3-prior-study-row span {
+  color: #565759;
+}
+
+.opt3-semester-note {
+  margin-top: 0;
+  margin-bottom: 8px;
 }
 
 #opt3-monthly-breakdown {
   border-top: 0;
-  padding-top: 0;
-  gap: 8px;
+  padding: 14px;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.opt3-results .schedule-item .opt3-schedule-amount {
+  font-weight: 400;
 }
 
 .opt3-semester-total {
@@ -858,6 +944,265 @@ select {
   margin-top: 8px;
   padding-top: 10px;
   font-weight: 700;
+}
+
+.opt3-semester-total strong {
+  font-weight: 700;
+}
+
+.opt3-payment-block {
+  padding: 0;
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+.opt3-payment-block .tab-row {
+  border: 1px solid #bcc4cf;
+}
+
+.opt3-payment-block .tab-btn {
+  min-height: 54px;
+  font-size: 1.03rem;
+}
+
+.opt3-payment-block .tab-btn.active {
+  background: #d4dae4;
+}
+
+#opt3-core-root .accordion {
+  border: 0;
+  border-bottom: 1px solid #bcc4cf;
+}
+
+#opt3-core-root .accordion:last-child {
+  border-bottom: 1px solid #bcc4cf;
+}
+
+#opt3-core-root .acc-btn {
+  background: #ffffff;
+  color: #565759;
+  font-weight: 700;
+  min-height: 54px;
+  padding: 14px;
+}
+
+#opt3-core-root .acc-btn span:last-child {
+  color: #565759;
+}
+
+#opt3-core-root .acc-panel {
+  padding: 14px;
+}
+
+#opt3-registration-card {
+  margin-top: 0;
+  box-shadow: none;
+  border: 0;
+  border-bottom: 1px solid #bcc4cf;
+}
+
+#opt3-registration-card .registration-line {
+  color: #565759;
+}
+
+#opt3-registration-card .registration-line span {
+  font-weight: 600;
+}
+
+#opt3-breakdown-toggle {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.opt3-registration-minimal {
+  border: 0;
+  border-bottom: 1px solid #bcc4cf;
+  box-shadow: none;
+  padding: 14px;
+}
+
+.opt3-registration-divider {
+  border-top: 1px solid var(--line);
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.opt3-study-start {
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 10px;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.opt3-study-start.hidden {
+  display: none;
+}
+
+.opt3-study-start p {
+  margin: 0;
+  color: #565759;
+}
+
+.opt3-start-toggle {
+  display: inline-flex;
+  border: 1px solid var(--line);
+}
+
+.opt3-start-btn {
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: #fff;
+  color: #565759;
+  min-height: 36px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.opt3-start-btn:last-child {
+  border-right: 0;
+}
+
+.opt3-start-btn.active {
+  background: #dfe4ed;
+  font-weight: 700;
+}
+
+.opt3-support-copy {
+  margin: 0;
+  color: #565759;
+  font-size: 0.92rem;
+}
+
+.opt3-selected-focus-summary {
+  font-weight: 600;
+  color: #565759;
+}
+
+.opt3-acc-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.opt3-focus-collapsed-copy {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #565759;
+}
+
+.opt3-ancillary-banner {
+  margin-top: 0;
+  padding: 14px;
+  gap: 6px;
+  box-shadow: none;
+  border: 0;
+  border-bottom: 1px solid #bcc4cf;
+  background: #f3f4f6;
+}
+
+.opt3-ancillary-banner h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: #565759;
+  font-weight: 500;
+}
+
+.opt3-ancillary-banner p {
+  margin: 0;
+  color: #565759;
+  font-size: 14px;
+}
+
+.opt3-ancillary-link {
+  color: #565759;
+  text-decoration: underline;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.opt3-results {
+  background: #f1f2f4;
+  padding: 18px 22px;
+  margin-top: 0;
+  box-shadow: none;
+  border: 0;
+}
+
+#tab-upfront .row {
+  background: transparent;
+  padding: 0;
+  margin: 0 0 10px;
+}
+
+#tab-monthly .opt3-monthly-row {
+  background: transparent;
+  padding: 0;
+  margin: 0 0 10px;
+}
+
+#tab-monthly .opt3-monthly-row .small {
+  margin-top: 6px;
+}
+
+#tab-monthly #opt3-monthly-amount {
+  font-size: 46px;
+}
+
+#opt3-monthly-breakdown .semester-divider {
+  margin: 0;
+  padding: 2px 0;
+}
+
+.opt3-full-plan-copy {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  color: #565759;
+  text-decoration: underline;
+  font-size: 13px;
+}
+
+.opt3-unified-card {
+  border: 1px solid var(--line);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.opt3-unified-card > .prototype {
+  margin-top: 0;
+  margin-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+  box-shadow: none;
+}
+
+.opt3-unified-card > .prototype:first-child {
+  border-top: 0;
+}
+
+.opt3-unified-card > .prototype:last-child {
+  border-bottom: 0;
+}
+
+/* Option 3 border thickness override */
+.opt3-payment-block .tab-row,
+#opt3-core-root .accordion,
+#opt3-registration-card,
+.opt3-registration-minimal,
+.opt3-registration-divider,
+.opt3-study-start,
+.opt3-start-toggle,
+.opt3-start-btn,
+#opt3-monthly-breakdown,
+.opt3-semester-total,
+.opt3-ancillary-banner,
+.opt3-unified-card {
+  border-width: 2px;
 }
 
 #opt2-breakdown-list {
