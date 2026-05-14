@@ -338,7 +338,6 @@
         months.forEach(function (m1) {
           rows.push("<div class='schedule-item'><span>" + m1 + "</span><strong class='opt3-schedule-amount'>" + money(monthly) + "</strong></div>");
         });
-        rows.push("<div class='small opt3-full-plan-copy'>View full payment plan for the complete course.</div>");
         rows.push("<div class='schedule-item opt3-semester-total'><span>Total</span><strong>" + money(semesterTotal) + "</strong></div>");
         monthlyBreakdown.innerHTML = rows.join("");
       }
@@ -368,17 +367,8 @@
     var toggle = document.getElementById("opt3-breakdown-toggle");
     var list = document.getElementById("opt3-monthly-breakdown");
     var studyStart = document.getElementById("opt3-study-start");
-    var registrationOptions = document.getElementById("opt3-breakdown-options");
-    var registrationDivider = document.querySelector("#opt3-registration-card .opt3-registration-divider");
-    var monthlyTab = document.getElementById("tab-monthly");
     var upfrontTab = document.getElementById("tab-upfront");
     var tabButtons = document.querySelectorAll(".opt3-payment-block [data-tab]");
-    var syncRegistrationVisibility = function () {
-      if (!registrationOptions) return;
-      var monthlyVisible = monthlyTab && !monthlyTab.classList.contains("hidden");
-      registrationOptions.classList.toggle("hidden", !monthlyVisible);
-      if (registrationDivider) registrationDivider.classList.toggle("hidden", !monthlyVisible);
-    };
     if (toggle && list) {
       list.classList.add("hidden");
       if (studyStart) studyStart.classList.add("hidden");
@@ -402,10 +392,8 @@
             toggle.textContent = "View payment plan";
           }
         }
-        syncRegistrationVisibility();
       });
     });
-    syncRegistrationVisibility();
   })();
 
 })();
